@@ -1,0 +1,70 @@
+body {
+font-family:Arial, sans-serif;
+}
+.title, select {
+ font-size:18px;
+ font-weight:bold;
+}
+
+.logo {
+    float:right;
+}
+
+form {
+ margin:0px 20px;
+ display:inline;
+}
+
+#traffic div {
+  padding: 2px;
+}
+.event {
+  margin-top:12px;
+  background-color:#86BCFF;
+  padding:2px;
+  border-radius:4px;
+  box-shadow:4px 4px 2px #999;
+}
+.icon {
+  float:left;
+  margin:4px 12px;
+  background-repeat:no-repeat;
+  width:32px;
+  height: 32px;
+}
+
+/* Car: 1F697
+   Warning: 26A0
+   Flag: 2691
+*/
+
+.event_0:before { content: "\263B"; }
+.event_0 { color:#00DD00; }
+.event_11 { background:url('http://webmap21.trafficmap.ch/images/verkehrslage_gesperrt_icon_liste.png'); }
+.event_12 { background:url('http://webmap21.trafficmap.ch/images/verkehrslage_stau_icon_liste.png'); }
+.event_13 { background:url('http://webmap21.trafficmap.ch/images/verkehrslage_behinderung_icon_liste.png'); }
+.event_90 { background:url('http://webmap21.trafficmap.ch/images/gefahr_icon_liste.png'); }
+
+.name {
+  font-weight:bold;
+}
+.time {
+  font-size:80%;
+}
+
+.priority_0 {
+  background-color:#e0e0e0 !important;
+}
+
+.priority_1 {
+  background-color:#DBEBFF !important;
+}
+
+.priority_2 {
+  background-color:#BBDAFF !important;
+}
+
+.priority_3 {
+  background-color:#99C7FF !important;
+}
+
