@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.hello-world" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-  <name>AlertMe</name>
+<widget id="ch.innovalue.alert-me" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+  <name>AlertMe!</name>
     <description>
         Application to provide notification about specific events
     </description>
@@ -55,5 +55,5 @@
 <!--
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
 -->
-    <access origin="https://*.eks.com" />
+    <access origin="appstage.eks.com" />
 </widget>
