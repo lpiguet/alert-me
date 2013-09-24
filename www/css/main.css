@@ -1,16 +1,19 @@
 .jumbotron {
-  padding:10px;
+  padding:4px 10px;
   margin-bottom:10px;
 }
 
 div>h2 {
   margin-top:0px;
 }
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 
+.jumbotron h1 {
+  font-size:40px;
+}
 
+h2 {
+  font-size: 24px;
+}
 
 
 
