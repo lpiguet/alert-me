@@ -3,9 +3,23 @@
 
 <script type="text/javascript">
 
+  var latlongpos = new google.maps.LatLng(46.51848, 6.51129);
+
+  var win = function(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    latlongpos = new google.maps.LatLng(lat, long);
+  };
+
+  var fail = function(e) {
+    alert('Can\'t retrieve position.\nError: ' + e);
+  };
+
+  watchID = navigator.geolocation.getCurrentPosition(win, fail);
+
   $('#map_canvas').height($(window).height());
       var mapOptions = {
-      center: new google.maps.LatLng(46.51848, 6.51129),
+      center: latlongpos,
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
