@@ -28,47 +28,42 @@
 
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><img src="icon.png" style="height:16px;" alt=""/>&nbsp;AlertMe!</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a onclick="update_div('main_content', 'traffic.html');">Traffic</a></li>
-                <li><a onclick="update_div('main_content', 'map.html');">Map</a></li>
-              </ul>
-            </li>
-
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Logout</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-      </div>
+      <a class="navbar-brand" href="#"><img src="icon.png" style="height:32px;" alt=""/>&nbsp;&nbsp;AlertMe!</a>
     </div>
 
-    <div id="main_content">
-      <p>Select a category</p>
-    </div> 
-    <hr>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse-traffic-report">
+          Traffic Report
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-traffic-report" class="panel-collapse collapse">
+      <div class="panel-body" id="traffic-report">
+        Traffic Report...
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse-traffic-map">
+          Traffic Map
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-traffic-map" class="panel-collapse collapse">
+      <div class="panel-body" id="traffic-map">
+        Traffic map...
+      </div>
+    </div>
+  </div>
+</div>
 
     <footer>
-      <p>&copy; AlertMe! 2013</p>
+      <p>&copy; AlertMe! 2013. All Rights Reserved.</p>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -83,9 +78,16 @@
       </script>
 
       <script>
-        update_div('main_content', 'traffic.html');
-      </script>
 
+        $('#collapse-traffic-report').on('show.bs.collapse', function () {
+          update_div('traffic-report', 'traffic.html');
+        })
+
+        $('#collapse-traffic-map').on('show.bs.collapse', function () {
+          update_div('traffic-map', 'traffic-map.html');
+        })
+
+      </script>
 
 
 <!--

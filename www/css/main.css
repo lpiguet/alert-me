@@ -2,26 +2,24 @@ body {
   padding-top: 60px;
 }
 
-.jumbotron {
-  padding:4px 10px;
-  margin-bottom:10px;
-}
-
 div>h2 {
   margin-top:0px;
-}
-
-.jumbotron h1 {
-  font-size:40px;
 }
 
 h2 {
   font-size: 24px;
 }
 
+.navbar-brand {
+  padding:10px;
+}
 
-
-
+footer {
+   margin-top:6px;
+   text-align:center;
+   font-size: 10px;
+   color:#666;
+}
 
 
 
