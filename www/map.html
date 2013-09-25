@@ -1,0 +1,16 @@
+
+<div id="map_canvas"></div>
+
+<script type="text/javascript">
+
+  $('#map_canvas').height($(window).height());
+      var mapOptions = {
+      center: new google.maps.LatLng(46.51848, 6.51129),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+    var trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+</script>

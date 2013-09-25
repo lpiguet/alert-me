@@ -44,6 +44,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a onclick="update_div('main_content', 'traffic.html');">Traffic</a></li>
+                <li><a onclick="update_div('main_content', 'map.html');">Map</a></li>
               </ul>
             </li>
 
@@ -77,9 +78,15 @@
 
       <script src="js/main.js"></script>
 
+      <script type="text/javascript"
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClYeJzWWixCOKew4O_ECL-hVcAvFqyzis&sensor=false">
+      </script>
+
       <script>
         update_div('main_content', 'traffic.html');
       </script>
+
+
 
 <!--
         <script>
