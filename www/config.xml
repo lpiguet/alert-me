@@ -57,5 +57,8 @@
 -->
     <gap:platform name="android" />
 <!--    <gap:platform name="ios" />-->
+
+    <gap:plugin name="com.adobe.plugins.pushplugin" />
+
     <access origin="*" />
 </widget>

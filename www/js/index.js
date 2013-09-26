@@ -35,15 +35,50 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
-    // Update DOM on a Received Event
+
+    // Process received events
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        var pushNotification = window.plugins.pushNotification;
+        pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
 
         console.log('Received Event: ' + id);
+    },
+
+    // result contains any message sent from the gcm plugin call
+    gcmSuccessHandler: function(result) {
+        alert('Callback Success! Result = '+result)
+    },
+
+    // gcm Error
+    gcmErrorHandler:function(error) {
+        alert(error);
+    },
+
+    // gcm Notification Message
+    onNotificationGCM: function(e) {
+        switch (e.event) {
+            case 'registered':
+            if (e.regid.length > 0) {
+                console.log("Regid " + e.regid);
+                alert('registration id = '+e.regid);
+            }
+            break;
+ 
+            case 'message':
+            // this is the actual push notification. its format depends on the data model from the push server
+            alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+            break;
+ 
+            case 'error':
+            alert('GCM error = '+e.msg);
+            break;
+ 
+            default:
+            alert('An unknown GCM event has occurred');
+            break;
+        }
     }
+
 };
