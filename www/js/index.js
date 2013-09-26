@@ -19,7 +19,6 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        this.registerGCM();
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -47,15 +46,18 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        alert ('onDeviceReady event');        
+        //        app.receivedEvent('deviceready');
+        this.registerGCM();
     },
 
+    /*
     // Process received events
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-
         console.log('Received Event: ' + id);
     },
+    */
 
     // result contains any message sent from the gcm plugin call
     gcmSuccessHandler: function(result) {
