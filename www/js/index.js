@@ -32,9 +32,14 @@ var app = {
     },
 
     registerGCM: function () {
-        var pushNotification = window.plugins.pushNotification;
-        pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
-        alert ('GCM registered');        
+        alert ('Registering GCM');        
+        try {
+            var pushNotification = window.plugins.pushNotification;
+            pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
+        } catch (e) {
+            alert (e.message);
+        }
+        alert ('GCM Registered');        
     },
 
     // deviceready Event Handler
