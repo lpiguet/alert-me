@@ -27,18 +27,6 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        alert ('events registered');
-    },
-
-    registerGCM: function () {
-        alert ('Registering GCM');        
-        try {
-            var pushNotification = window.plugins.pushNotification;
-            pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
-        } catch (e) {
-            alert (e.message);
-        }
-        alert ('GCM Registered');        
     },
 
     // deviceready Event Handler
@@ -46,27 +34,14 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        alert ('onDeviceReady event');        
-        //        app.receivedEvent('deviceready');
 
-        alert ('Registering GCM');        
         try {
             var pushNotification = window.plugins.pushNotification;
             pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
         } catch (e) {
             alert (e.message);
         }
-        alert ('GCM Registered');        
-
     },
-
-    /*
-    // Process received events
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        console.log('Received Event: ' + id);
-    },
-    */
 
     // result contains any message sent from the gcm plugin call
     gcmSuccessHandler: function(result) {
@@ -84,7 +59,7 @@ var app = {
             case 'registered':
             if (e.regid.length > 0) {
                 console.log("Regid " + e.regid);
-                alert('registration id = '+e.regid);
+                //                alert('registration id = '+e.regid);
                 $.post ('https://appstage.eks.com/traffic/registration.php', { registration: e.regid });
             }
             break;
