@@ -9,12 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=1, minimum-scale=0.5, target-densitydpi=medium-dpi" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <style>
-            body {
-                padding-top: 50px;
-                padding-bottom: 20px;
-            }
-        </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/traffic.css">
@@ -36,16 +30,15 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse-traffic-report">
-          Traffic Report
+          Traffic
         </a>
       </h4>
     </div>
-    <div id="collapse-traffic-report" class="panel-collapse collapse">
-      <div class="panel-body" id="traffic-report">
-        Traffic Report...
-      </div>
+    <div id="collapse-traffic-report" class="panel-collapse collapse in">
+      <div class="panel-body" id="traffic-report"></div>
     </div>
   </div>
+<!--
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -60,6 +53,7 @@
       </div>
     </div>
   </div>
+-->
 </div>
 
     <footer>
@@ -88,13 +82,11 @@
       </script>
 
       <script>
+        update_div('traffic-report', 'traffic.html'); // at start
 
+        // When opening the accordion
         $('#collapse-traffic-report').on('show.bs.collapse', function () {
           update_div('traffic-report', 'traffic.html');
-        })
-
-        $('#collapse-traffic-map').on('show.bs.collapse', function () {
-          update_div('traffic-map', 'traffic-map.html');
         })
 
       </script>

@@ -20,14 +20,6 @@ footer {
    font-size: 10px;
    color:#666;
 }
-
-
-
-
-
-
-
-
-
-
-
+.panel-body {
+  padding:5px;
+}

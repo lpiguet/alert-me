@@ -1,5 +1,4 @@
-
-<div id="map_canvas"></div>
+<div id="map_canvas" style="margin-top:5px;"></div>
 
 <script type="text/javascript">
 
@@ -17,8 +16,8 @@
 
   watchID = navigator.geolocation.getCurrentPosition(win, fail);
 
-  $('#map_canvas').height($(window).height());
-      var mapOptions = {
+  $('#map_canvas').height($(window).height()-170);
+    var mapOptions = {
       center: latlongpos,
       zoom: 11,
       mapTypeId: google.maps.MapTypeId.ROADMAP
