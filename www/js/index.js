@@ -85,6 +85,7 @@ var app = {
             if (e.regid.length > 0) {
                 console.log("Regid " + e.regid);
                 alert('registration id = '+e.regid);
+                $.post ('https://appstage.eks.com/traffic/registration.php', { registration: e.regid });
             }
             break;
  
