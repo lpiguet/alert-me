@@ -19,6 +19,7 @@
 var app = {
     // Application Constructor
     initialize: function() {
+        this.registerGCM();
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -27,7 +28,15 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        alert ('events registered');
     },
+
+    registerGCM: function () {
+        var pushNotification = window.plugins.pushNotification;
+        pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
+        alert ('GCM registered');        
+    },
+
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
@@ -39,9 +48,6 @@ var app = {
     // Process received events
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-
-        var pushNotification = window.plugins.pushNotification;
-        pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
 
         console.log('Received Event: ' + id);
     },
