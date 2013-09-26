@@ -48,7 +48,16 @@ var app = {
     onDeviceReady: function() {
         alert ('onDeviceReady event');        
         //        app.receivedEvent('deviceready');
-        this.registerGCM();
+
+        alert ('Registering GCM');        
+        try {
+            var pushNotification = window.plugins.pushNotification;
+            pushNotification.register(app.gcmSuccessHandler, app.gcmErrorHandler,{"senderID":"690639424128","ecb":"app.onNotificationGCM"});
+        } catch (e) {
+            alert (e.message);
+        }
+        alert ('GCM Registered');        
+
     },
 
     /*
