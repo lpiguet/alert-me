@@ -37,7 +37,7 @@ function onDeviceReady() {
         pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
             $("#app-status-ul").append('<li>registering android</li>');
-            pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotificationGCM"});		// required!
+            pushNotification.register(successHandler, errorHandler, {"senderID":"690639424128","ecb":"onNotificationGCM"});		// required!
         } else {
             $("#app-status-ul").append('<li>registering iOS</li>');
             pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
@@ -57,7 +57,7 @@ function onNotificationAPN(e) {
     }
         
     if (e.sound) {
-        var snd = new Media(e.sound);
+        var snd = new Media('sounds/'.e.sound);
         snd.play();
     }
         
@@ -88,7 +88,7 @@ function onNotificationGCM(e) {
             $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 	
             // if the notification contains a soundname, play it.
-            var my_media = new Media("/android_asset/www/"+e.soundname);
+            var my_media = new Media("/android_asset/www/sounds/"+e.soundname);
             my_media.play();
         } else {	// otherwise we were launched because the user touched a notification in the notification tray.
             if (e.coldstart) {
