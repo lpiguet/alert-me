@@ -16,6 +16,8 @@
       
     <script type="text/javascript">
      var pushNotification;
+
+     var storage = window.localStorage;
         
 function onDeviceReady() {
     $("#app-status-ul").append('<li>deviceready event received</li>');
@@ -84,6 +86,7 @@ function onNotificationGCM(e) {
     case 'message':
         // if this flag is set, this notification happened while we were in the foreground.
         // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+/*
         if (e.foreground) {
             $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 	
@@ -100,6 +103,8 @@ function onNotificationGCM(e) {
 	
         $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
         $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+*/
+        storeNotification (e);
         break;
         
         case 'error':
@@ -110,6 +115,29 @@ function onNotificationGCM(e) {
             $("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
             break;
     }
+}
+
+function drawNotification (e) {
+    $txt = '<div>';
+    $txt += '<img src="img/'+e.payload.type+'.png" alt="" />';
+    $txt += e.payload.title + '<br/>'+e.payload.message+ ' ('+e.payload.timestamp+')<br/>'+e.payload.url+'</div>';
+    $("#notifications-ul").append('<li>' + txt + '</li>');
+}
+
+function storeNotification (e) {
+     storage.setItem (e.payload.timestamp, JSON.stringify (e.payload));
+     drawNotification (e);
+}
+
+function drawAllNotifications () {
+    for (var i=0; i < storage.length; i++) {
+        e = JSON.parse (storage.getItem(storage.key(i)));
+        drawNotification (e);
+    }
+}
+
+function clearAllNotifications () {
+    storage.clear();
 }
         
 function tokenHandler (result) {
@@ -141,8 +169,14 @@ document.addEventListener('deviceready', onDeviceReady, true);
 	  </ul>
 	</div>
 
+	<div id="notifications-div">
+	  <ul id="notifications-ul">
+	  </ul>
+	</div>
+
 
         <a class="btn btn-default" href="alertme.html">AlertMe! Main Page</a>
+        <a class="btn btn-default" href="#" onclick="clearAllNotifications();">Clear notifications</a>
 
       </div>
   </body>
