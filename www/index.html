@@ -118,15 +118,15 @@ function onNotificationGCM(e) {
 }
 
 function drawNotification (e) {
-    $txt = '<div>';
-    $txt += '<img src="img/'+e.payload.type+'.png" alt="" />';
-    $txt += e.payload.title + '<br/>'+e.payload.message+ ' ('+e.payload.timestamp+')<br/>'+e.payload.url+'</div>';
+    txt = '<div>';
+    txt += '<img src="img/'+e.payload.type+'.png" alt="" />';
+    txt += e.payload.title + '<br/>'+e.payload.message+ ' ('+e.payload.timestamp+')<br/>'+e.payload.url+'</div>';
     $("#notifications-ul").append('<li>' + txt + '</li>');
 }
 
 function storeNotification (e) {
-     storage.setItem (e.payload.timestamp, JSON.stringify (e.payload));
      drawNotification (e);
+     storage.setItem (e.payload.timestamp, JSON.stringify (e.payload));
 }
 
 function drawAllNotifications () {
