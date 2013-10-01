@@ -123,11 +123,12 @@ function drawNotification (e) {
 
 function addNotification (e) {
     drawNotification (e);
-    var store = JSON.stringify (e.payload);
-    storage.setItem (e.payload.timestamp, store);
+    var value = JSON.stringify (e.payload);
+    var key = e.payload.timestamp;
+    storage.setItem (key, value);
 
     // Verify
-    drawStatus ('Stored:'+store);
+    drawStatus ('Stored:'+storage.getItem(key));
 }
 
 function drawAllNotifications () {
