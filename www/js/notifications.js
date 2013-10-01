@@ -110,7 +110,7 @@ function debug (msg) {
 
 function drawNotification (pl) {
     var uid = pl.timestamp;
-    uid = uid.replace (" ", "_", uid);
+    uid = uid.replace (" ", "_").replace (":", "_");
     txt = '<div class="service-event" id="'+uid+'">';
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
@@ -134,7 +134,7 @@ function openURL (url) {
 function addNotification (pl) {
     drawNotification (pl);
     var value = JSON.stringify (pl);
-    var key = pl.timestamp.replace (" ", "_");
+    var key = pl.timestamp.replace (" ", "_").replace (":", "_");
     storage.setItem (key, value);
 
     // Verify
@@ -142,7 +142,7 @@ function addNotification (pl) {
 }
 
 function deleteNotification (uid) {
-    alert ('Removing item '+uid);
+
     debug ('Removing item '+uid);
 
     // Remove from UI
