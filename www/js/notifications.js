@@ -114,7 +114,7 @@ function drawNotification (pl) {
     txt = '<div class="service-event" id="'+uid+'">';
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
-    txt += '<div class="col-xs-8"><strong>'+pl.title+'</strong><br/>'+pl.message+' ('+pl.timestamp+')&nbsp;<a href="'+pl.url+'" alt=""><span class="glyphicon glyphicon-search"></span></a></div>';
+    txt += '<div class="col-xs-8"><strong>'+pl.title+'</strong><br/>'+pl.message+' ('+pl.timestamp+')&nbsp;<a onclick="openURL(\''+pl.url+'\');" alt=""><span class="glyphicon glyphicon-search"></span></a></div>';
     txt += '<div class="col-xs-1 text-center"><a onclick="deleteNotification(\''+uid+'\')"><span class="glyphicon glyphicon-remove-circle" style="font-size:150%;"></span></a></div>';
     txt += '</div>';
     txt += '</div>';
@@ -125,6 +125,10 @@ function drawNotification (pl) {
     var my_media = new Media("/android_asset/www/sounds/"+pl.type+".wav");
     my_media.play();
     */
+}
+
+function openURL (url) {
+    var ref = window.open (url, '_blank');
 }
 
 function addNotification (pl) {
