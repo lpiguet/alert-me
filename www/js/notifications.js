@@ -91,7 +91,7 @@ function onNotificationGCM(e) {
           drawStatus('MESSAGE -> MSG: ' + e.payload.message );
           drawStatus('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
         */
-        addNotification (e);
+        addNotification (e.payload);
         break;
         
     case 'error':
@@ -105,26 +105,26 @@ function onNotificationGCM(e) {
 }
 
 function drawStatus (msg) {
-    $("#app-status-ul").append('<li>'+msg+'</li>');
+    /*    $("#app-status-ul").append('<li>'+msg+'</li>');*/
     console.log (msg);
 }
 
-function drawNotification (e) {
+function drawNotification (pl) {
     txt = '<div>';
-    txt += '<img src="img/'+e.payload.type+'.png" alt="" />';
-    txt += e.payload.title + '<br/>'+e.payload.message+ ' ('+e.payload.timestamp+')<br/>'+e.payload.url+'</div>';
+    txt += '<img src="img/'+pl.type+'.png" alt="" />';
+    txt += pl.title + '<br/>'+pl.message+ ' ('+pl.timestamp+')<br/><a href="'+pl.url+'" alt="">'+pl.url+'</a></div>';
     $("#notifications-ul").append('<li>' + txt + '</li>');
 
     /*
-    var my_media = new Media("/android_asset/www/sounds/"+e.payload.type+".wav");
+    var my_media = new Media("/android_asset/www/sounds/"+pl.type+".wav");
     my_media.play();
     */
 }
 
-function addNotification (e) {
-    drawNotification (e);
-    var value = JSON.stringify (e.payload);
-    var key = e.payload.timestamp;
+function addNotification (pl) {
+    drawNotification (pl);
+    var value = JSON.stringify (pl);
+    var key = pl.timestamp;
     storage.setItem (key, value);
 
     // Verify
@@ -134,8 +134,8 @@ function addNotification (e) {
 function drawAllNotifications () {
     $("#notifications-ul").empty();
     for (var i=0; i < storage.length; i++) {
-        e = JSON.parse (storage.getItem(storage.key(i)));
-        drawNotification (e);
+        pl = JSON.parse (storage.getItem(storage.key(i)));
+        drawNotification (pl);
     }
 }
 
