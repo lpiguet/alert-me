@@ -1,8 +1,9 @@
-var pushNotification;
 
 var storage = window.localStorage;
         
 function onDeviceReady() {
+    var pushNotification;
+
     drawStatus('deviceready event received');
         
     document.addEventListener("backbutton", function(e) {
