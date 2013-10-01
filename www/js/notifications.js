@@ -111,7 +111,7 @@ function debug (msg) {
 function drawNotification (pl) {
     var uid = pl.timestamp;
     uid = uid.replace (" ", "_", uid);
-    txt += '<div class="service-event" id="'+uid+'">';
+    txt = '<div class="service-event" id="'+uid+'">';
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
     txt += '<div class="col-xs-9"><strong>'+pl.title+'</strong><br/>'+pl.message+' ('+pl.timestamp+')&nbsp;<a href="'+pl.url+'" alt=""><span class="glyphicon glyphicon-search"></span></a></div>';
