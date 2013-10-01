@@ -4,10 +4,10 @@ var storage = window.localStorage;
         
 function onDeviceReady() {
 
-    drawStatus('deviceready event received');
+    debug('deviceready event received');
         
     document.addEventListener("backbutton", function(e) {
-            drawStatus('backbutton event received');
+            debug('backbutton event received');
   	
             if( $("#home").length > 0) {
                 // call this to get a new token each time. don't call it to reuse existing token.
@@ -22,11 +22,11 @@ function onDeviceReady() {
     try { 
         pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
-            drawStatus('registering android');
+            debug('registering android');
             pushNotification.register(successHandler, errorHandler, {"senderID":"690639424128","ecb":"onNotificationGCM"});
             // required!
         } else {
-            drawStatus('registering iOS');
+            debug('registering iOS');
             pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
         }
     } catch(err) { 
@@ -41,7 +41,7 @@ function onDeviceReady() {
 // handle APNS notifications for iOS
 function onNotificationAPN(e) {
     if (e.alert) {
-        drawStatus('push-notification: ' + e.alert );
+        debug('push-notification: ' + e.alert );
         navigator.notification.alert(e.alert);
     }
         
@@ -57,12 +57,12 @@ function onNotificationAPN(e) {
         
 // handle GCM notifications for Android
 function onNotificationGCM(e) {
-    drawStatus('EVENT -> RECEIVED:' + e.event );
+    debug('EVENT -> RECEIVED:' + e.event );
         
     switch( e.event ) {
     case 'registered':
         if ( e.regid.length > 0 ) {
-            drawStatus('REGISTERED -> REGID:' + e.regid);
+            debug('REGISTERED -> REGID:' + e.regid);
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
             console.log("regID = " + e.regID);
@@ -75,45 +75,51 @@ function onNotificationGCM(e) {
         // you might want to play a sound to get the user's attention, throw up a dialog, etc.
         /*
           if (e.foreground) {
-          drawStatus('--INLINE NOTIFICATION--' );
+          debug('--INLINE NOTIFICATION--' );
 	
           // if the notification contains a soundname, play it.
           var my_media = new Media("/android_asset/www/sounds/"+e.soundname);
           my_media.play();
           } else {	// otherwise we were launched because the user touched a notification in the notification tray.
           if (e.coldstart) {
-          drawStatus('--COLDSTART NOTIFICATION--' );
+          debug('--COLDSTART NOTIFICATION--' );
           } else {
-          drawStatus('--BACKGROUND NOTIFICATION--' );
+          debug('--BACKGROUND NOTIFICATION--' );
           }
           }
 	
-          drawStatus('MESSAGE -> MSG: ' + e.payload.message );
-          drawStatus('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
+          debug('MESSAGE -> MSG: ' + e.payload.message );
+          debug('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
         */
         addNotification (e.payload);
         break;
         
     case 'error':
-        drawStatus('ERROR -> MSG:' + e.msg );
+        debug('ERROR -> MSG:' + e.msg );
         break;
         
     default:
-        drawStatus('EVENT -> Unknown, an event was received and we do not know what it is');
+        debug('EVENT -> Unknown, an event was received and we do not know what it is');
         break;
     }
 }
 
-function drawStatus (msg) {
-    /*    $("#app-status-ul").append('<li>'+msg+'</li>');*/
+function debug (msg) {
     console.log (msg);
 }
 
 function drawNotification (pl) {
-    txt = '<div>';
-    txt += '<img src="img/'+pl.type+'.png" alt="" />';
-    txt += pl.title + '<br/>'+pl.message+ ' ('+pl.timestamp+')<br/><a href="'+pl.url+'" alt="">'+pl.url+'</a></div>';
-    $("#notifications-ul").append('<li>' + txt + '</li>');
+    var uid = pl.timestamp;
+    uid = uid.replace (" ", "_", uid);
+    txt += '<div class="service-event" id="'+uid+'">';
+    txt += '<div class="row">';
+    txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
+    txt += '<div class="col-xs-9"><strong>'+pl.title+'</strong><br/>'+pl.message+' ('+pl.timestamp+')&nbsp;<a href="'+pl.url+'" alt=""><span class="glyphicon glyphicon-search"></span></a></div>';
+    txt += '<div class="col-xs-1 text-center"><span class="glyphicon glyphicon-remove-circle" style="font-size:150%;" onclick="deleteNotification('+uid+')"></span></div>';
+    txt += '</div>';
+    txt += '</div>';
+
+    $("#notifications-div").prepend(txt);
 
     /*
     var my_media = new Media("/android_asset/www/sounds/"+pl.type+".wav");
@@ -124,15 +130,28 @@ function drawNotification (pl) {
 function addNotification (pl) {
     drawNotification (pl);
     var value = JSON.stringify (pl);
-    var key = pl.timestamp;
+    var key = pl.timestamp.replace (" ", "_");
     storage.setItem (key, value);
 
     // Verify
-    drawStatus ('Stored:'+storage.getItem(key));
+    debug ('Stored:'+storage.getItem(key));
 }
 
+function deleteNotification (uid) {
+
+    // Remove from UI
+    $("#"+uid).remove();
+
+    // Remove from storage
+    storage.removeItem (uid);
+
+    // Verify
+    debug ('Removed item '+uid);
+}
+
+
 function drawAllNotifications () {
-    $("#notifications-ul").empty();
+    $("#notifications-div").empty();
     for (var i=0; i < storage.length; i++) {
         pl = JSON.parse (storage.getItem(storage.key(i)));
         drawNotification (pl);
@@ -142,21 +161,21 @@ function drawAllNotifications () {
 function clearAllNotifications () {
     $("#notifications-ul").empty();
     storage.clear();
-    alert ('All notifications cleared');
+    debug ('All notifications cleared');
 }
         
 function tokenHandler (result) {
-    drawStatus('token: '+ result);
+    debug('token: '+ result);
     // Your iOS push server needs to know the token before it can push to this device
     // here is where you might want to send it the token for later use.
 }
 	
 function successHandler (result) {
-    drawStatus('success:'+ result);
+    debug('success:'+ result);
 }
         
 function errorHandler (error) {
-    drawStatus('error:'+ error);
+    debug('error:'+ error);
 }
         
 document.addEventListener('deviceready', onDeviceReady, true);

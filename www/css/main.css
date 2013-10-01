@@ -23,3 +23,12 @@ footer {
 .panel-body {
   padding:5px;
 }
+
+.service-type {
+  margin-left:8px;
+}
+
+.service-event {
+  padding:10px 0px;
+  border-bottom:1px solid #ccc;
+}
