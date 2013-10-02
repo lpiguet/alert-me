@@ -17,45 +17,29 @@
    
     <div id="home">
 
-      <div class="navbar navbar-inverse navbar-fixed-top row" style="padding:8px 8px">
+      <div class="navbar navbar-inverse navbar-fixed-top">
 
-        <div class="col-xs-10"><h2 style="margin:4px 0px 0px 0px;color:white;"><img src="icon.png" style="height:32px;" alt=""/>&nbsp;AlertMe!</h2>
+        <p class="navbar-text"><h2 class="navbar-text" style="margin:10px 0px 0px 0px;padding:0px;"><img src="icon.png" style="height:32px;" alt=""/>&nbsp;AlertMe!</p>
         </div>
-        <div class="col-xs-2">
-          <a class="btn btn-default pull-right" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a>
-        </div>
-
-      </div>
-
-
-      <div id="app-status-div">
       </div>
 
       <div id="notifications-div">
-<!--
-<div class="service-event">
-<div class="row">
-<div class="col-xs-2 text-center"><img class="service-type" src="img/traffic.png" alt="" /></div>
-<div class="col-xs-9"><strong>A1 - Geneve -> Lausanne</strong>&nbsp;<a href="https://appstage.eks.com/traffic" alt=""><span class="glyphicon glyphicon-search"></span></a><br/>A1 - Geneve -> Lausanne - Entre la jonction d'Aubonne et la jonction de Morges-Est trafic en accordeon (01-Oct 09:30)</div>
-<div class="col-xs-1 text-center"><span class="glyphicon glyphicon-remove-circle" style="font-size:150%;"></span></div>
-</div>
-</div>
-<div class="service-event">
-<div class="row">
-<div class="col-xs-2 text-center"><img class="service-type" src="img/traffic.png" alt="" /></div>
-<div class="col-xs-6"><strong>ZeTitle</strong>&nbsp;<a href="https://appstage.eks.com/traffic" alt=""><span class="glyphicon glyphicon-search"></span></a><br/>ZeMessage</div>
-<div class="col-xs-3 text-right">01-Oct 09:30</div>
-<div class="col-xs-1 text-center"><span class="glyphicon glyphicon-remove-circle" style="font-size:150%;"></span></div>
-</div>
-</div>
--->
       </div>
-
-
-<!--      <a class="btn btn-default" href="alertme.html">AlertMe! Main Page</a>-->
 
     </div>
     <script type="text/javascript" src="js/notifications.js"></script>
-
+<!--
+<script>
+var pl={timestamp:"01-Oct 09:30",
+        title:"A1 - Geneve -> Lausanne",
+        message:"A1 - Geneve -> Lausanne - Entre la jonction d'Aubonne et la jonction de Morges-Est trafic en accordeon",
+        timestamp:"01-Oct 09:30",
+        type:"traffic",
+        url:"https://appstage.eks.com/traffic/"};
+addNotification (pl);
+drawClearAll();
+//drawAllNotifications();
+</script>
+-->
   </body>
 </html>

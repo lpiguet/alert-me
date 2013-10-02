@@ -32,3 +32,16 @@ footer {
   padding:10px 0px;
   border-bottom:1px solid #ccc;
 }
+
+.service-event span.glyphicon-remove-circle {
+    font-size:150%;
+}
+.clickable {
+    cursor:pointer;
+}
+.service-event .title {
+  font-weight:bold;
+}
+.service-event .timestamp {
+  font-size: 80%;
+}

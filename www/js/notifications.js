@@ -91,6 +91,9 @@ function onNotificationGCM(e) {
           debug('MESSAGE -> MSG: ' + e.payload.message );
           debug('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
         */
+        if (e.foreground) {
+            navigator.notification.vibrate(500);
+        }
         addNotification (e.payload);
         break;
         
@@ -114,8 +117,10 @@ function drawNotification (pl) {
     txt = '<div class="service-event" id="'+uid+'">';
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
-    txt += '<div class="col-xs-8"><strong>'+pl.title+'</strong><br/>'+pl.message+' ('+pl.timestamp+')&nbsp;<a onclick="openURL(\''+pl.url+'\');" alt=""><span class="glyphicon glyphicon-search"></span></a></div>';
-    txt += '<div class="col-xs-1 text-center"><a onclick="deleteNotification(\''+uid+'\')"><span class="glyphicon glyphicon-remove-circle" style="font-size:150%;"></span></a></div>';
+    txt += '<div class="col-xs-8 clickable" onclick="openURL(\''+pl.url+'\');"><span class="title">'+pl.title+'</span><br/><span class="">'+pl.message+'</span><br/><span class="timestamp text-muted">' +pl.timestamp+' - '+pl.type+'</span>';
+    //    txt += '&nbsp;<a onclick="openURL(\''+pl.url+'\');" alt=""><span class="glyphicon glyphicon-search"></span></a>';
+    txt += '</div>';
+    txt += '<div class="col-xs-1 pull-right"><a class="clickable" onclick="deleteNotification(\''+uid+'\')"><span class="glyphicon glyphicon-remove-circle"></span></a></div>';
     txt += '</div>';
     txt += '</div>';
 
@@ -128,7 +133,8 @@ function drawNotification (pl) {
 }
 
 function openURL (url) {
-    var ref = window.open (url, '_system');
+    //    var ref = window.open (url, '_system');
+    var ref = window.open (url, '_blank');
 }
 
 function addNotification (pl) {
@@ -153,19 +159,36 @@ function deleteNotification (uid) {
 
 }
 
+function drawClearAll () {
+    txt = '<div class="navbar">';
+    txt += '<p class="navbar-text pull-right"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></div>';
+    txt += '</div>';
+
+    $("#notifications-div").append (txt);
+}
 
 function drawAllNotifications () {
+
     $("#notifications-div").empty();
+
     for (var i=0; i < storage.length; i++) {
         pl = JSON.parse (storage.getItem(storage.key(i)));
         drawNotification (pl);
     }
+
+    if (storage.length == 0) {
+        $("#notifications-div").html('<div class="navbar-text" id="intro_text"><p>No notifications yet... Surely this will change</p></div>');
+    }
+
+    drawClearAll();
 }
 
 function clearAllNotifications () {
-    $("#notifications-div").empty();
-    storage.clear();
-    debug ('All notifications cleared');
+    if (confirm ('Are you sure you want to clear all notifications?')) {
+        $("#notifications-div").empty();
+        storage.clear();
+        debug ('All notifications cleared');
+    }
 }
         
 function tokenHandler (result) {
