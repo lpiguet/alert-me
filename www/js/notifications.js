@@ -162,7 +162,8 @@ function deleteNotification (uid) {
 
 function drawClearAll () {
     txt = '<div class="navbar">';
-    txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></div>';
+    txt += '<p class="navbar-text"><span style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;AlertMe! Main Page</a></p>';
+    txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></p>';
     txt += '</div>';
 
     $("#notifications-div").append (txt);
