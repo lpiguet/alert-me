@@ -135,7 +135,7 @@ function drawNotification (pl) {
 
 function openURL (url) {
     //    var ref = window.open (url, '_system');
-    var ref = window.open (url, '_blank');
+    var ref = window.open (url, '_self');
 }
 
 function addNotification (pl) {
