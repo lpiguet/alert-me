@@ -135,7 +135,7 @@ function drawNotification (pl) {
 
 function openURL (url) {
     //    var ref = window.open (url, '_system');
-    var ref = window.open (url, '_self');
+    var ref = window.open (url, '_blank', 'location=no');
 }
 
 function addNotification (pl) {
@@ -162,7 +162,7 @@ function deleteNotification (uid) {
 
 function drawFooter () {
     txt = '<div class="navbar">';
-    txt += '<p class="navbar-text"><span style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;AlertMe! Main Page</a></p>';
+    txt += '<p class="navbar-text"><span style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;AlertMe!</a></p>';
     txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></p>';
     txt += '</div>';
 
