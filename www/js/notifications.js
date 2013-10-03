@@ -160,7 +160,7 @@ function deleteNotification (uid) {
 
 }
 
-function drawClearAll () {
+function drawFooter () {
     txt = '<div class="navbar">';
     txt += '<p class="navbar-text"><span style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;AlertMe! Main Page</a></p>';
     txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></p>';
@@ -179,15 +179,16 @@ function drawAllNotifications () {
     }
 
     if (storage.length == 0) {
-        $("#notifications-div").html('<div class="navbar-text" id="intro_text"><p>No notifications yet... Surely this will change</p></div>');
+        $("#notifications-div").html('<p style="padding:20px 30px;" id="intro_text">No notifications yet... Surely this will change &#9786;</p>');
     }
 
-    drawClearAll();
+    drawFooter();
 }
 
 function clearAllNotifications () {
     if (confirm ('Are you sure you want to clear all notifications?')) {
         $("#notifications-div").empty();
+        drawFooter();
         storage.clear();
         debug ('All notifications cleared');
     }
