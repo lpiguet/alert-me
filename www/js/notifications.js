@@ -147,7 +147,7 @@ function addNotification (pl) {
     debug ('Stored:'+storage.getItem(key));    // Verify
 
     // Play sound
-    var sound_file = "sounds/"+pl.type+".mp3";
+    var sound_file = "/android_asset/www/sounds/"+pl.type+".mp3";
     var my_media = new Media(sound_file);
     debug ('Playing sound:'+sound_file);
     my_media.play();
