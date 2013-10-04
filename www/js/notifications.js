@@ -141,7 +141,7 @@ function addNotification (pl) {
     var key = pl.timestamp.replace (" ", "_").replace (":", "_");
     storage.setItem (key, value);
 
-    if ($('#welcome').exists()) {
+    if ($('#welcome')) {
         $('#welcome').remove();
     }
 
