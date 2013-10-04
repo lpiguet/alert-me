@@ -91,11 +91,13 @@ function onNotificationGCM(e) {
           debug('MESSAGE -> MSG: ' + e.payload.message );
           debug('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
         */
-        /*
+
         if (e.foreground) {
             navigator.notification.vibrate(500);
+            var my_media = new Media("/android_asset/www/sounds/"+e.payload.type+".wav");
+            my_media.play();
         }
-        */
+
         addNotification (e.payload);
         break;
         
@@ -126,11 +128,6 @@ function drawNotification (pl) {
     txt += '</div>';
 
     $("#notifications-div").prepend(txt);
-
-    /*
-    var my_media = new Media("/android_asset/www/sounds/"+pl.type+".wav");
-    my_media.play();
-    */
 }
 
 function openURL (url) {
