@@ -93,7 +93,7 @@ function onNotificationGCM(e) {
         */
 
         if (e.foreground) {
-            navigator.notification.vibrate(500);
+            //navigator.notification.vibrate(500);
             var my_media = new Media("/android_asset/www/sounds/"+e.payload.type+".wav");
             my_media.play();
         }
