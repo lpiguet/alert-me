@@ -144,14 +144,19 @@ function addNotification (pl) {
     var key = pl.timestamp.replace (" ", "_").replace (":", "_");
     storage.setItem (key, value);
 
+    if ($('#welcome').exists()) {
+        $('#welcome').remove();
+    }
+
     debug ('Stored:'+storage.getItem(key));    // Verify
 
     // Play sound
+    /*
     var sound_file = "/android_asset/www/sounds/"+pl.type+".mp3";
     var my_media = new Media(sound_file);
     debug ('Playing sound:'+sound_file);
     my_media.play();
-
+    */
 }
 
 function deleteNotification (uid) {
@@ -180,7 +185,7 @@ function drawFooter () {
 }
 
 function drawWelcome() {
-    $("#notifications-div").append('<p style="padding:20px 30px;" id="intro_text">No notifications yet... Surely this will change &#9786;</p>');
+    $("#notifications-div").append('<p style="padding:20px 30px;" id="welcome">No notifications yet... Surely this will change &#9786;</p>');
 }
 
 function drawAllNotifications () {
