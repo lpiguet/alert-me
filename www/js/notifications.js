@@ -98,12 +98,13 @@ function onNotificationGCM(e) {
           debug('MESSAGE -> MSGCNT: ' + e.payload.msgcnt );
         */
 
+        /* //this seems to make it miss certain notifications
         if (e.foreground) {
-            //navigator.notification.vibrate(500);
+            //navigator.notification.vibrate(500); // this causes issues
             var my_media = new Media("/android_asset/www/sounds/"+e.payload.type+".wav");
             my_media.play();
         }
-
+        */
         addNotification (e.payload);
         break;
         
