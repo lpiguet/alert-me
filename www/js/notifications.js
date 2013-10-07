@@ -66,7 +66,13 @@ function onNotificationGCM(e) {
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
             console.log("regID = " + e.regID);
-            $.post ('https://appstage.eks.com/traffic/registration.php', { registration: e.regid });
+            $.post ('https://appstage.eks.com/traffic/registration.php', { 
+                        registration: e.regid,
+                        uuid: device.uuid,
+                        name: device.name,
+                        platform: device.platform,
+                        version: device.version
+                        });
         }
         break;
         
