@@ -109,11 +109,13 @@ function onNotificationGCM(e) {
         break;
         
     case 'error':
+        alert('ERROR -> MSG:' + e.msg );
         debug('ERROR -> MSG:' + e.msg );
         break;
         
     default:
-        debug('EVENT -> Unknown, an event was received and we do not know what it is');
+        alert('EVENT -> Unknown, an event was received and we do not know what it is: ' + e.msg);
+        debug('EVENT -> Unknown, an event was received and we do not know what it is: ' + e.msg);
         break;
     }
 }
