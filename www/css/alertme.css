@@ -39,6 +39,9 @@ footer {
 .clickable {
     cursor:pointer;
 }
+.clickable:hover {
+    text-decoration:none;
+}
 .service-event .title {
   font-weight:bold;
 }

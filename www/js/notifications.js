@@ -30,9 +30,7 @@ function onDeviceReady() {
             pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
         }
     } catch(err) { 
-        txt="There was an error on this page.\n\n"; 
-        txt+="Error description: " + err.message + "\n\n"; 
-        alert(txt); 
+        alert(am.phonegap_error(err.message)); 
     } 
     // Prepare UI
     drawAllNotifications();
@@ -65,7 +63,6 @@ function onNotificationGCM(e) {
             debug('REGISTERED -> REGID:' + e.regid);
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
-            console.log("regID = " + e.regID);
             $.post ('https://appstage.eks.com/traffic/registration.php', { 
                         registration: e.regid,
                         uuid: device.uuid,
@@ -109,12 +106,12 @@ function onNotificationGCM(e) {
         break;
         
     case 'error':
-        alert('ERROR -> MSG:' + e.msg );
+        alert(am.error_event('laurent.piguet@gmail.com') + e.msg );
         debug('ERROR -> MSG:' + e.msg );
         break;
         
     default:
-        alert('EVENT -> Unknown, an event was received and we do not know what it is: ' + e.msg);
+        alert(am.unknown_event('laurent.piguet@gmail.com'));
         debug('EVENT -> Unknown, an event was received and we do not know what it is: ' + e.msg);
         break;
     }
@@ -183,15 +180,15 @@ function deleteNotification (uid) {
 
 function drawFooter () {
     txt = '<div class="navbar">';
-    txt += '<p class="navbar-text" style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home">&nbsp;AlertMe!</a></p>';
-    txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;Clear All</a></p>';
+    txt += '<p class="navbar-text" style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;'+am.app_name+'</a></p>';
+    txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;'+am.clear_all+'</a></p>';
     txt += '</div>';
 
     $("#footer-div").append (txt);
 }
 
 function drawWelcome() {
-    $("#notifications-div").append('<p style="padding:20px 30px;" id="welcome">No notifications yet... Surely this will change &#9786;</p>');
+    $("#notifications-div").append('<p style="padding:20px 30px;" id="welcome">'+am.no_notifications_msg+'</p>');
 }
 
 function drawAllNotifications () {
@@ -211,7 +208,7 @@ function drawAllNotifications () {
 }
 
 function clearAllNotifications () {
-    if (confirm ('Are you sure you want to clear all notifications?')) {
+    if (confirm (am.confirm_clear_all)) {
         $("#notifications-div").empty();
         drawWelcome();
 
