@@ -128,7 +128,9 @@ function drawNotification (pl) {
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
 
-    var onclickstr = 'window.plugins.socialsharing.share(\''+pl.title+': '+pl.message+ ' ('+pl.url+')\');';
+    var curMsg = pl.message;
+    curMsg = curMsg.replace ("'", "\'");
+    var onclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
     txt += '<div class="col-xs-8 clickable" onclick="'+onclickstr+'"><span class="title">'+pl.title+'</span><br/><span class="">'+pl.message+'</span><br/><span class="timestamp text-muted">' +pl.timestamp+' - '+pl.type+'</span>';
     txt += '</div>';
