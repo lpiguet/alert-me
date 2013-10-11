@@ -59,6 +59,7 @@
 <!--    <gap:platform name="ios" />-->
 
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
 
-    <access origin="*" />
+    <access origin="*.innovalue.ch" />
 </widget>

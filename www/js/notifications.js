@@ -63,7 +63,7 @@ function onNotificationGCM(e) {
             debug('REGISTERED -> REGID:' + e.regid);
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
-            $.post ('https://appstage.eks.com/traffic/registration.php', { 
+            $.post ('https://app.innovalue.ch/traffic/registration.php', { 
                         registration: e.regid,
                         uuid: device.uuid,
                         name: device.name,
@@ -127,7 +127,10 @@ function drawNotification (pl) {
     txt = '<div class="service-event" id="'+uid+'">';
     txt += '<div class="row">';
     txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
-    txt += '<div class="col-xs-8 clickable" onclick="openURL(\''+pl.url+'\');"><span class="title">'+pl.title+'</span><br/><span class="">'+pl.message+'</span><br/><span class="timestamp text-muted">' +pl.timestamp+' - '+pl.type+'</span>';
+
+    var onclickstr = 'window.plugins.socialsharing.share(\''+pl.title+': '+pl.message+ ' ('+pl.url+')\');';
+
+    txt += '<div class="col-xs-8 clickable" onclick="'+onclickstr+'"><span class="title">'+pl.title+'</span><br/><span class="">'+pl.message+'</span><br/><span class="timestamp text-muted">' +pl.timestamp+' - '+pl.type+'</span>';
     txt += '</div>';
     txt += '<div class="col-xs-1"><a class="clickable" onclick="deleteNotification(\''+uid+'\')"><span class="glyphicon glyphicon-remove-circle"></span></a></div>';
     txt += '</div>';
@@ -180,7 +183,7 @@ function deleteNotification (uid) {
 
 function drawFooter () {
     txt = '<div class="navbar">';
-    txt += '<p class="navbar-text" style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://appstage.eks.com/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;'+am.app_name+'</a></p>';
+    txt += '<p class="navbar-text" style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://app.innovalue.ch/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;'+am.app_name+'</a></p>';
     txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;'+am.clear_all+'</a></p>';
     txt += '</div>';
 
