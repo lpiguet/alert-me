@@ -124,19 +124,20 @@ function debug (msg) {
 function drawNotification (pl) {
     var uid = pl.timestamp;
     uid = uid.replace (" ", "_").replace (":", "_");
-    txt = '<div class="service-event" id="'+uid+'">';
-    txt += '<div class="row">';
-    txt += '<div class="col-xs-2 text-center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
+
+    var txt = '<div class="row service-event" id="'+uid+'">';
+
+    txt += '<div class="small-1 columns"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
 
     var curMsg = pl.message;
     curMsg = curMsg.replace ("'", "\'");
     var onclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
-    txt += '<div class="col-xs-8 clickable" onclick="'+onclickstr+'"><span class="title">'+pl.title+'</span><br/><span class="">'+pl.message+'</span><br/><span class="timestamp text-muted">' +pl.timestamp+' - '+pl.type+'</span>';
+    txt += '<div class="small-10 columns clickable" onclick="'+onclickstr+'"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type+'</p>';
     txt += '</div>';
-    txt += '<div class="col-xs-1"><a class="clickable" onclick="deleteNotification(\''+uid+'\')"><span class="glyphicon glyphicon-remove-circle"></span></a></div>';
+    txt += '<div class="small-1 column"><a class="clickable right" onclick="deleteNotification(\''+uid+'\')"><i class="fi-x-circle action-icon"></i></a></div>';
     txt += '</div>';
-    txt += '</div>';
+
 
     $("#notifications-div").prepend(txt);
 }
@@ -184,9 +185,12 @@ function deleteNotification (uid) {
 }
 
 function drawFooter () {
-    txt = '<div class="navbar">';
-    txt += '<p class="navbar-text" style="padding-left:10px;"><a class="clickable" onclick="openURL(\'https://app.innovalue.ch/traffic\');"><span class="glyphicon glyphicon-home"></span>&nbsp;'+am.app_name+'</a></p>';
-    txt += '<p class="navbar-text pull-right" style="padding-right:10px;"><a class="clickable" onclick="clearAllNotifications();"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;'+am.clear_all+'</a></p>';
+    txt = '<div class="row footer_banner">';
+    txt += '<div class="large-12 columns">';
+    txt += '<p class="left"><a class="clickable" onclick="openURL(\'https://app.innovalue.ch/traffic\');"><i class="fi-home action-icon"></i>&nbsp;'+am.app_name+'</a></p>';
+    txt += '<p class="right"><a class="clickable" onclick="clearAllNotifications();"><i class="fi-x-circle action-icon"></i>&nbsp;'+am.clear_all+'</a></p>';
+
+    txt += '</div>';
     txt += '</div>';
 
     $("#footer-div").append (txt);

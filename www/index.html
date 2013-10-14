@@ -1,44 +1,81 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>AlertMe!</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/alertme.css">
+<!DOCTYPE html>
 
-  </head>
-  <body>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>');</script>
-    <script src="js/vendor/jquery.i18n.properties-min-1.0.9.js"></script>
-   
-    <div id="home">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>alert-me</title>
+  
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/icons/foundation-icons.css">
+  <link rel="stylesheet" href="css/alertme.css">
 
-      <div class="navbar navbar-inverse navbar-fixed-top">
+  <script src="js/vendor/custom.modernizr.js"></script>
 
-        <p class="navbar-text"><h2 class="navbar-text" style="margin:10px 0px 0px 10px;padding:0px;"><img src="icon.png" style="height:32px;" alt=""/>&nbsp;<span id="am_app_name">AlertMe!</span></p>
-        </div>
-      </div>
+</head>
+<body>
 
-      <div id="notifications-div">
-      </div>
-
-      <div id="footer-div">
-      </div>
-
+  <div class="row top_banner">
+    <div class="small-12 column">
+      <div class="left"><img src="icon.png" alt=""/></div>
+      <div class="title left am_app_name">AlertMe!</div>
     </div>
+  </div>
+
+  <div id="notifications-div">
+  </div>
+
+  <div id="footer-div">
+  </div>
+<!--
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="panel">
+        Some text here
+      </div>
+    </div>
+  </div>
+-->
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" src="PushNotification.js"></script>
+    <script  type="text/javascript" src="js/plugins/SocialSharing.js"></script>
+
+
+  <script>
+    document.write('<script src=' +
+                            ('__proto__' in {} ? 'js/vendor/zepto.min' : 'js/vendor/jquery') +
+                            '.js><\/script>')
+    </script>
+    
+    <script src="js/foundation.min.js"></script>
+    <!--
+       <script src="js/foundation/foundation.js"></script>
+       <script src="js/foundation/foundation.interchange.js"></script>
+       <script src="js/foundation/foundation.abide.js"></script>
+       <script src="js/foundation/foundation.dropdown.js"></script>
+       <script src="js/foundation/foundation.placeholder.js"></script>
+       <script src="js/foundation/foundation.forms.js"></script>
+       <script src="js/foundation/foundation.alerts.js"></script>
+       <script src="js/foundation/foundation.magellan.js"></script>
+       <script src="js/foundation/foundation.reveal.js"></script>
+       <script src="js/foundation/foundation.tooltips.js"></script>
+       <script src="js/foundation/foundation.clearing.js"></script>
+       <script src="js/foundation/foundation.cookie.js"></script>
+       <script src="js/foundation/foundation.joyride.js"></script>
+       <script src="js/foundation/foundation.orbit.js"></script>
+       <script src="js/foundation/foundation.section.js"></script>
+       <script src="js/foundation/foundation.topbar.js"></script>
+       -->
+    
+    <script>
+      $(document).foundation();
+    </script>
+    <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
 
     <script type="text/javascript" src="js/i18n_settings.js"></script>
 
     <script type="text/javascript" src="js/notifications.js"></script>
 
 
-    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-    <script type="text/javascript" src="PushNotification.js"></script>
-    <script  type="text/javascript" src="js/plugins/SocialSharing.js"></script>
-
-<!--
 <script>
 var pl={timestamp:"01-Oct 09:30",
         title:"A1 - Geneve -> Lausanne",
@@ -49,6 +86,8 @@ var pl={timestamp:"01-Oct 09:30",
 addNotification (pl);
 drawAllNotifications();
 </script>
--->
-  </body>
+<a class="button" href="#" onclick="addNotification(pl);">Add event</a>
+
+
+</body>
 </html>

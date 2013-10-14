@@ -1,41 +1,48 @@
-body {
-  padding-top: 60px;
+p {
+  line-height:1.1;
+  margin-bottom:0.5em;
 }
 
-div>h2 {
-  margin-top:0px;
+.action-icon {
+  font-size:18px;
+  position:relative;
+
 }
 
-h2 {
-  font-size: 24px;
+.top_banner {
+  background-color:#444;
+}
+.top_banner img {
+  width:72px;
+  margin:4px 0px;
 }
 
-.navbar-brand {
-  padding:10px;
+.top_banner .title {
+  font-size:2.4em;
+  font-weight:bold;
+  color:white;
+  margin:20px 0px 20px 10px;
 }
 
-footer {
-   margin-top:6px;
-   text-align:center;
-   font-size: 10px;
-   color:#666;
-}
-.panel-body {
-  padding:5px;
+.footer_banner {
+  background-color:#444;
 }
 
-.service-type {
-  margin-left:8px;
+.footer_banner .clickable {
+    color:white;
+}
+
+.footer_banner p {
+  margin:8px 0px;
 }
 
 .service-event {
   padding:10px 0px;
+
   border-bottom:1px solid #ccc;
+  color:#444;
 }
 
-.service-event span.glyphicon-remove-circle {
-    font-size:150%;
-}
 .clickable {
     cursor:pointer;
 }
@@ -44,7 +51,15 @@ footer {
 }
 .service-event .title {
   font-weight:bold;
+  color:#222;
 }
 .service-event .timestamp {
-  font-size: 80%;
+  font-size: 0.8em;
+}
+
+.service-event a {
+  color:#666;
+}
+.service-event .action-icon {
+  font-size:28px;
 }
