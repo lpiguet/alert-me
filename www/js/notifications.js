@@ -1,3 +1,5 @@
+//var notificationBackend = 'https://app.innovalue.ch/traffic';
+var notificationBackend = 'https://appstage.eks.com/traffic';
 
 var pushNotification;
 var storage = window.localStorage;
@@ -63,7 +65,7 @@ function onNotificationGCM(e) {
             debug('REGISTERED -> REGID:' + e.regid);
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
-            $.post ('https://app.innovalue.ch/traffic/registration.php', { 
+            $.post (notificationBackend+'/registration.php', { 
                         registration: e.regid,
                         uuid: device.uuid,
                         name: device.name,
@@ -187,7 +189,7 @@ function deleteNotification (uid) {
 function drawFooter () {
     txt = '<div class="row footer_banner">';
     txt += '<div class="large-12 columns">';
-    txt += '<p class="left"><a class="clickable" onclick="openURL(\'https://app.innovalue.ch/traffic\');"><i class="fi-home action-icon"></i>&nbsp;'+am.app_name+'</a></p>';
+    txt += '<p class="left"><a class="clickable" onclick="openURL(\''+notificationBackend+'\');"><i class="fi-home action-icon"></i>&nbsp;'+am.app_name+'</a></p>';
     txt += '<p class="right"><a class="clickable" onclick="clearAllNotifications();"><i class="fi-x-circle action-icon"></i>&nbsp;'+am.clear_all+'</a></p>';
 
     txt += '</div>';
