@@ -15,8 +15,10 @@ function onDeviceReady() {
                 // call this to get a new token each time. don't call it to reuse existing token.
                 //pushNotification.unregister(successHandler, errorHandler);
                 e.preventDefault();
+                debug('exiting app');
                 navigator.app.exitApp();
             } else {
+                debug('going back');
                 navigator.app.backHistory();
             }
         }, false);
