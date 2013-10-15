@@ -1,5 +1,4 @@
 var notificationBackend = 'https://app.innovalue.ch/traffic';
-//var notificationBackend = 'https://appstage.eks.com/traffic';
 
 var pushNotification;
 var storage = window.localStorage;
@@ -137,6 +136,7 @@ function drawNotification (pl) {
 
     var curMsg = pl.message;
     curMsg = curMsg.replace (/'/g, "\\'");
+
     console.log ('share msg:'+curMsg);
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
@@ -207,7 +207,7 @@ function drawFooter () {
 }
 
 function drawWelcome() {
-    $("#notifications-div").append('<p style="padding:20px 30px;" id="welcome">'+am.no_notifications_msg+'</p>');
+    $("#notifications-div").append('<p id="welcome">'+am.no_notifications_msg+'</p>');
 }
 
 function drawAllNotifications () {
