@@ -1,27 +1,38 @@
+body {
+  font-family: Oswald;
+  font-weight: 300;
+}
 p {
-  line-height:1.1;
+  line-height:1.2;
   margin-bottom:0.5em;
+  font-weight: 300;
 }
 
 .action-icon {
   font-size:18px;
   position:relative;
-
 }
+
+.action-icon-sm {
+  font-size:15px;
+  position:relative;
+  margin-left:10px;
+}
+
 
 .top_banner {
   background-color:#444;
 }
 .top_banner img {
-  width:72px;
+  width:36px;
   margin:4px 0px;
 }
 
 .top_banner .title {
-  font-size:2.4em;
-  font-weight:bold;
+  font-size:1.4em;
+  font-weight:400;
   color:white;
-  margin:20px 0px 20px 10px;
+  margin:12px 0px 6px 10px;
 }
 
 .footer_banner {
@@ -50,7 +61,7 @@ p {
     text-decoration:none;
 }
 .service-event .title {
-  font-weight:bold;
+  font-weight:400;
   color:#222;
 }
 .service-event .timestamp {

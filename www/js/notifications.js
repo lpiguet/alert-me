@@ -125,6 +125,8 @@ function debug (msg) {
 
 function drawNotification (pl) {
     var uid = pl.timestamp;
+    if (typeof uid === 'undefined') { return; }
+    console.log ('uid:'+uid);
     uid = uid.replace (" ", "_").replace (":", "_");
 
     var txt = '<div class="row service-event" id="'+uid+'">';
@@ -133,9 +135,12 @@ function drawNotification (pl) {
 
     var curMsg = pl.message;
     curMsg = curMsg.replace ("'", "\'");
-    var onclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
+    var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
-    txt += '<div class="small-10 columns clickable" onclick="'+onclickstr+'"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type+'</p>';
+    txt += '<div class="small-10 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
+    txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
+    txt += '</p>';
+
     txt += '</div>';
     txt += '<div class="small-1 column"><a class="clickable right" onclick="deleteNotification(\''+uid+'\')"><i class="fi-x-circle action-icon"></i></a></div>';
     txt += '</div>';
