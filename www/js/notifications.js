@@ -1,5 +1,5 @@
-//var notificationBackend = 'https://app.innovalue.ch/traffic';
-var notificationBackend = 'https://appstage.eks.com/traffic';
+var notificationBackend = 'https://app.innovalue.ch/traffic';
+//var notificationBackend = 'https://appstage.eks.com/traffic';
 
 var pushNotification;
 var storage = window.localStorage;
