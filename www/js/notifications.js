@@ -131,13 +131,13 @@ function drawNotification (pl) {
 
     var txt = '<div class="row service-event" id="'+uid+'">';
 
-    txt += '<div class="small-1 columns"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
+    txt += '<div class="small-2 columns" style="text-align:center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
 
     var curMsg = pl.message;
     curMsg = curMsg.replace ("'", "\'");
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
-    txt += '<div class="small-10 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
+    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
     txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
     txt += '</p>';
 

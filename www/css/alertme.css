@@ -1,8 +1,9 @@
-body {
-  font-family: Oswald;
+html, body {
+  font-family: Oswald !important;
   font-weight: 300;
 }
 p {
+  font-family: Oswald !important;
   line-height:1.2;
   margin-bottom:0.5em;
   font-weight: 300;
