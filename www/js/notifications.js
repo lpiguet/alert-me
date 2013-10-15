@@ -134,7 +134,7 @@ function drawNotification (pl) {
     txt += '<div class="small-2 columns" style="text-align:center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
 
     var curMsg = pl.message;
-    curMsg = curMsg.replace ("/'/g", "\\'");
+    curMsg = curMsg.replace (/'/g, "\\'");
     console.log ('share msg:'+curMsg);
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
