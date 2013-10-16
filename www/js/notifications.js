@@ -124,11 +124,21 @@ function debug (msg) {
     console.log (msg);
 }
 
+function pr_date (ts) {
+    var d;
+    if (ts == 0) {
+        d = new Date();
+    } else {
+        d = new Date(ts);
+    }
+
+    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+}
+
 function drawNotification (pl) {
     var uid = pl.timestamp;
     if (typeof uid === 'undefined') { return; }
     console.log ('uid:'+uid);
-    uid = uid.replace (" ", "_").replace (":", "_");
 
     var txt = '<div class="row service-event" id="'+uid+'">';
 
@@ -140,7 +150,7 @@ function drawNotification (pl) {
     console.log ('share msg:'+curMsg);
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
-    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message" style="font-family:Oswald;">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
+    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pr_date(pl.timestamp)+' - '+pl.type;
     txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
     txt += '</p>';
 
@@ -160,7 +170,7 @@ function openURL (url) {
 function addNotification (pl) {
     drawNotification (pl);
     var value = JSON.stringify (pl);
-    var key = pl.timestamp.replace (" ", "_").replace (":", "_");
+    var key = pl.timestamp;
     storage.setItem (key, value);
 
     if ($('#welcome')) {
@@ -207,7 +217,7 @@ function drawFooter () {
 }
 
 function drawWelcome() {
-    $("#notifications-div").append('<p id="welcome">'+am.no_notifications_msg+'</p>');
+    $("#notifications-div").append('<div class="row"><p id="welcome">'+am.no_notifications_msg+'</p></div>');
 }
 
 function drawAllNotifications () {

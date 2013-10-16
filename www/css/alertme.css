@@ -62,7 +62,6 @@ p {
     text-decoration:none;
 }
 .service-event .title {
-  font-family: Oswald !important;
   font-weight:400;
   color:#222;
 }
@@ -75,4 +74,8 @@ p {
 }
 .service-event .action-icon {
   font-size:28px;
+}
+#welcome {
+  margin:0px;
+  padding:1em;
 }
