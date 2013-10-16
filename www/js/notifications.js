@@ -140,7 +140,7 @@ function drawNotification (pl) {
     console.log ('share msg:'+curMsg);
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
-    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
+    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message" style="font-family:Oswald;">'+pl.message+'</p><p class="timestamp">' +pl.timestamp+' - '+pl.type;
     txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
     txt += '</p>';
 
