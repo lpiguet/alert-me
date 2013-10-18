@@ -129,7 +129,7 @@ function pr_date (ts) {
     if (ts == 0) {
         d = new Date();
     } else {
-        d = new Date(ts);
+        d = new Date(parseInt(ts, 10));
     }
 
     return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
