@@ -11,6 +11,7 @@
   
   <link rel="stylesheet" href="css/foundation.css">
   <link rel="stylesheet" href="css/icons/foundation-icons.css">
+
   <link rel="stylesheet" href="css/alertme.css">
 
   <script src="js/vendor/custom.modernizr.js"></script>
@@ -75,22 +76,28 @@
     </script>
     <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
 
+    <script src="js/vendor/globalize/globalize.js"></script>
+    <script src="js/vendor/globalize/cultures/globalize.culture.fr.js"></script>
+    <script src="js/vendor/globalize/cultures/globalize.culture.en-US.js"></script>
+    <script src="js/vendor/globalize/cultures/globalize.culture.de.js"></script>
+
     <script type="text/javascript" src="js/i18n_settings.js"></script>
 
     <script type="text/javascript" src="js/notifications.js"></script>
 
 <!--
 <script>
-var pl={timestamp:"01-Oct 09:30",
-        title:"A1 - Geneve -> Lausanne",
+var pl={title:"A1 - Geneve -> Lausanne",
         message:"A1 - Geneve -> Lausanne - Entre la jonction d'Aubonne et la jonction de Morges-Est trafic en accordeon",
         timestamp:0,
         type:"traffic",
         url:"https://app.innovalue.ch/traffic/"};
-//addNotification (pl);
+
+addNotification (pl);
 drawAllNotifications();
+
 </script>
-<a class="button" href="#" onclick="var d=new Date();pl.timestamp=d.valueOf();addNotification(pl);">Add event</a>
+<a class="button" href="#" onclick="alert(pl.title);addNotification(pl);">Add event</a>
 -->
 
 </div>

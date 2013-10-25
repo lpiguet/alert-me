@@ -132,13 +132,22 @@ function pr_date (ts) {
         d = new Date(parseInt(ts, 10));
     }
 
-    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+    var cult = Zepto.i18n.browserLang(); // grab current culture from browser information
+    console.log (cult);
+    Globalize.culture(cult);
+    return Globalize.format(d, 'd') + ' ' + Globalize.format(d, 't');
 }
 
 function drawNotification (pl) {
+
+    if (typeof pl.timestamp === 'undefined' || pl.timestamp == 0) {
+        var date = new Date();
+        pl.timestamp = date.valueOf();
+    }
+
     var uid = pl.timestamp;
+    //    console.log ('uid:'+uid);
     if (typeof uid === 'undefined') { return; }
-    console.log ('uid:'+uid);
 
     var txt = '<div class="row service-event" id="'+uid+'">';
 
@@ -147,7 +156,7 @@ function drawNotification (pl) {
     var curMsg = pl.message;
     curMsg = curMsg.replace (/'/g, "\\'");
 
-    console.log ('share msg:'+curMsg);
+//    console.log ('share msg:'+curMsg);
     var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
 
     txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pr_date(pl.timestamp)+' - '+pl.type;
@@ -177,7 +186,7 @@ function addNotification (pl) {
         $('#welcome').remove();
     }
 
-    debug ('Stored:'+storage.getItem(key));    // Verify
+    //    debug ('Stored:'+storage.getItem(key));    // Verify
 
     // Play sound
     /*
