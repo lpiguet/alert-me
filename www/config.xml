@@ -58,7 +58,7 @@
 -->
     <gap:platform name="android" />
 <!--    <gap:platform name="ios" />-->
-
+    <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
 
