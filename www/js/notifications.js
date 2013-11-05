@@ -1,7 +1,12 @@
 var notificationBackend = 'https://app.innovalue.ch/traffic';
+var registrationBackend = notificationBackend+'/registration.php'
+
+//var notificationBackend = 'http://localhost/alertme';
+//var registrationBackend = notificationBackend+'/devices/register'
 
 var pushNotification;
 var storage = window.localStorage;
+
         
 function onDeviceReady() {
 
@@ -67,12 +72,9 @@ function onNotificationGCM(e) {
             debug('REGISTERED -> REGID:' + e.regid);
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
-            $.post (notificationBackend+'/registration.php', { 
+            $.post (registrationBackend, { 
                         registration: e.regid,
-                        uuid: device.uuid,
-                        name: device.name,
-                        platform: device.platform,
-                        version: device.version
+                        uuid: device.uuid
                         });
         }
         break;
@@ -148,7 +150,7 @@ function openURL (url) {
 function addNotification (pl) {
     drawNotification (pl);
     var value = JSON.stringify (pl);
-    var key = pl.timestamp;
+    var key = 'event.'+pl.timestamp;
     storage.setItem (key, value);
 
     if ($('#welcome')) {
@@ -176,11 +178,65 @@ function deleteNotification (uid) {
     $("#"+uid).remove();
 
     // Remove from storage
-    storage.removeItem (uid);
+    storage.removeItem ('event.'+uid);
 
     if (storage.length == 0) {
         drawWelcome();
     }
+}
+
+function drawLogin() {
+
+    var uuid;
+    var name;
+    var platform;
+    var version;
+    if (typeof device === 'undefined') {
+        uuid = 'unknown-x234sajkha-2342';
+        name = navigator.appCodeName;
+        platform = navigator.platform;
+        version = navigator.appVersion;
+    } else {
+        uuid = device.uuid;
+        name = device.name;
+        platform = device.platform;
+        version = device.version;
+    }
+
+    var txt = '<div class="row user form"><form accept-charset="utf-8" method="post" id="UserLoginForm" class="nice" action="';
+    txt += notificationBackend+'/users/login"><div style="display:none;">';
+    txt += '<input type="hidden" value="POST" name="_method">';
+    txt += '<input type="hidden" value="'+uuid+'" name="data[Device][uuid]" />';
+    txt += '<input type="hidden" value="'+name+'" name="data[Device][name]" />';
+    txt += '<input type="hidden" value="'+platform+'" name="data[Device][platform]" />';
+    txt += '<input type="hidden" value="'+version+'" name="data[Device][version]" /></div>';
+    txt += '<fieldset><legend>Please enter your username and password</legend>';
+    txt += '<div class="form-field required"><label for="UserUsername">Username</label><input type="text" required="required" id="UserUsername" maxlength="100" class="input-text medium input-text" name="data[User][username]"></div><div class="form-field required"><label for="UserPassword">Password</label><input type="password" required="required" id="UserPassword" class="input-text medium input-text" name="data[User][password]"></div>';
+    //    txt += '<div class="submit"><button>Submit</button></div></form></div>';
+    txt += '<div class="go"><button class="small button">Submit</button></div></fieldset></form></div>';
+    
+    $("#login-div").append (txt);
+
+//callback handler for form submit
+$("#UserLoginForm").submit(function(e) {
+
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+    $.ajax({
+            url : formURL,
+            type: "POST",
+            data : postData,
+            success:function(data, textStatus, jqXHR) {
+                //data: return data from server
+                debug ('Success: received: ' + data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                //if fails     
+                debug ('Failure: ' + textStatus);
+            }
+    });
+    e.preventDefault(); //STOP default action
+});
 
 }
 
@@ -209,7 +265,7 @@ function drawAllNotifications () {
     // Sort the items by their key (timestamp)
     var arr = new Array();
     for (var key in storage) {
-        if (localStorage.hasOwnProperty(key) && !isNaN(key)) {
+        if (key.match(/event.*/)) {
             arr.push(key);
         }
     }
@@ -235,8 +291,19 @@ function clearAllNotifications () {
         $("#notifications-div").empty();
         drawWelcome();
 
-        storage.clear();
+        clearStorage (/event.*/);
         debug ('All notifications cleared');
+    }
+}
+
+function clearStorage (pat) {
+    //    storage.clear();
+    for (var key in storage) {
+        debug ("testing: "+key+" against "+pat);
+        if (key.match (pat)) {
+            debug ("clearStorage: erasing: "+key);
+            storage.removeItem(key);
+        }
     }
 }
         
