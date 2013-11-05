@@ -41,9 +41,6 @@ function onDeviceReady() {
     } catch(err) { 
         alert(am.phonegap_error(err.message)); 
     } 
-    // Prepare UI
-    drawHeader();
-    drawAllNotifications();
 }
         
 // handle APNS notifications for iOS
@@ -150,7 +147,6 @@ function openURL (url) {
 
 function addNotification (pl) {
     clearWelcome();
-    drawNotification (pl);
     var value = JSON.stringify (pl);
     var key = 'event.'+pl.timestamp;
     storage.setItem (key, value);
@@ -163,6 +159,7 @@ function addNotification (pl) {
     debug ('Stored:'+storage.getItem(key));    // Verify
     debug ("Total items: "+storage.length);
 
+    drawAllNotifications ();
     // Play sound
     /*
     var sound_file = "/android_asset/www/sounds/"+pl.type+".mp3";
@@ -176,15 +173,13 @@ function deleteNotification (uid) {
 
     debug ('Removing item '+uid);
 
-    // Remove from UI
-    $("#"+uid).remove();
-
     // Remove from storage
     storage.removeItem ('event.'+uid);
 
     if (storage.length == 0) {
         drawWelcome();
     }
+    drawAllNotifications ();
 }
 
 function drawLogin() {
