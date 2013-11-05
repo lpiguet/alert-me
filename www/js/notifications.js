@@ -42,6 +42,7 @@ function onDeviceReady() {
         alert(am.phonegap_error(err.message)); 
     } 
     // Prepare UI
+    drawHeader();
     drawAllNotifications();
 }
         
@@ -148,6 +149,7 @@ function openURL (url) {
 }
 
 function addNotification (pl) {
+    clearWelcome();
     drawNotification (pl);
     var value = JSON.stringify (pl);
     var key = 'event.'+pl.timestamp;
@@ -239,6 +241,15 @@ $("#UserLoginForm").submit(function(e) {
 });
 
 }
+function drawHeader() {
+    txt = '<div class="left"><img src="icon.png" alt=""/></div>';
+    txt += '<div class="title left am_app_name"><a class="clickable" onclick="openURL(\''+notificationBackend+'\');">'+am.app_name+'</a></div>';
+
+    $("#title_area").html (txt);
+
+    txt = '<a class="clickable" onclick="clearAllNotifications();"><i class="fi-x-circle action-icon"></i>&nbsp;'+am.clear_all+'</a>';
+    $("#actions_area").html (txt);
+}
 
 function drawFooter () {
     txt = '<div class="row footer_banner">';
@@ -253,7 +264,10 @@ function drawFooter () {
 }
 
 function drawWelcome() {
-    $("#notifications-div").append('<div class="row"><p id="welcome">'+am.no_notifications_msg+'</p></div>');
+    $("#messages-div").html('<div class="row service-event"><p id="welcome">'+am.no_notifications_msg+'</p></div>');
+}
+function clearWelcome() {
+    $("#messages-div").empty();
 }
 
 function drawAllNotifications () {
@@ -281,9 +295,9 @@ function drawAllNotifications () {
 
     if (storage.length == 0) {
         drawWelcome();
+    } else {
+        clearWelcome();
     }
-
-    drawFooter();
 }
 
 function clearAllNotifications () {

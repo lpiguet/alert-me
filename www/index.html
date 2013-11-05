@@ -20,13 +20,21 @@
 <body>
 <div id="home" style="font-family: Oswald; font-weight: 300;">
   <div class="row top_banner">
-    <div class="small-12 column">
-      <div class="left"><img src="icon.png" alt=""/></div>
-      <div class="title left am_app_name">AlertMe!</div>
+    <div class="small-6 column">
+      <div id="title_area">
+      </div>
     </div>
+    <div class="small-6 column">
+      <div id="actions_area" class="right">
+      </div>
+    </div>
+
   </div>
 
   <div id="login-div">
+  </div>
+
+  <div id="messages-div">
   </div>
 
   <div id="notifications-div">
@@ -34,6 +42,7 @@
 
   <div id="footer-div">
   </div>
+
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" src="PushNotification.js"></script>
     <script  type="text/javascript" src="js/plugins/SocialSharing.js"></script>
@@ -79,9 +88,11 @@
 
     <script type="text/javascript" src="js/notifications.js"></script>
 
+<script>
+  drawHeader();
+</script>
 <!--
 <script>
-/*
 var pl={title:"A1 - Geneve -> Lausanne",
         message:"A1 - Geneve -> Lausanne - Entre la jonction d'Aubonne et la jonction de Morges-Est trafic en accordeon",
         timestamp:0,
@@ -90,9 +101,7 @@ var pl={title:"A1 - Geneve -> Lausanne",
 
 
 drawAllNotifications();
-drawLogin();
-*/
-drawAllNotifications();
+//drawLogin();
 </script>
 <a class="button" href="#" onclick="var now = new Date().valueOf(); pl.timestamp=now;pl.title = 'Test '+now;addNotification(pl);">Add event</a>
 -->

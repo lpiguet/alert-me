@@ -36,11 +36,16 @@ p {
   margin:12px 0px 6px 10px;
 }
 
-.footer_banner {
-  background-color:#444;
+.top_banner #actions_area {
+  padding-top:1em;
 }
 
-.footer_banner .clickable {
+.footer_banner {
+  background-color:#444;
+  bottom:0px;
+}
+
+.footer_banner .clickable, .top_banner .clickable {
     color:white;
 }
 
