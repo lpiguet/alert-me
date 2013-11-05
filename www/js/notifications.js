@@ -7,6 +7,7 @@ function onDeviceReady() {
 
     debug('deviceready event received');
         
+    /*
     document.addEventListener("backbutton", function(e) {
             debug('backbutton event received');
   	
@@ -21,7 +22,7 @@ function onDeviceReady() {
                 navigator.app.backHistory();
             }
         }, false);
-	
+    */	
     try { 
         pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
@@ -133,43 +134,11 @@ function pr_date (ts) {
     }
 
     var cult = Zepto.i18n.browserLang(); // grab current culture from browser information
-    console.log (cult);
+    debug (cult);
     Globalize.culture(cult);
     return Globalize.format(d, 'd') + ' ' + Globalize.format(d, 't');
 }
 
-function drawNotification (pl) {
-
-    if (typeof pl.timestamp === 'undefined' || pl.timestamp == 0) {
-        var date = new Date();
-        pl.timestamp = date.valueOf();
-    }
-
-    var uid = pl.timestamp;
-    //    console.log ('uid:'+uid);
-    if (typeof uid === 'undefined') { return; }
-
-    var txt = '<div class="row service-event" id="'+uid+'">';
-
-    txt += '<div class="small-2 columns" style="text-align:center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
-
-    var curMsg = pl.message;
-    curMsg = curMsg.replace (/'/g, "\\'");
-
-//    console.log ('share msg:'+curMsg);
-    var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
-
-    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pr_date(pl.timestamp)+' - '+pl.type;
-    txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
-    txt += '</p>';
-
-    txt += '</div>';
-    txt += '<div class="small-1 column"><a class="clickable right" onclick="deleteNotification(\''+uid+'\')"><i class="fi-x-circle action-icon"></i></a></div>';
-    txt += '</div>';
-
-
-    $("#notifications-div").prepend(txt);
-}
 
 function openURL (url) {
     //    var ref = window.open (url, '_system');
@@ -186,7 +155,9 @@ function addNotification (pl) {
         $('#welcome').remove();
     }
 
-    //    debug ('Stored:'+storage.getItem(key));    // Verify
+    debug ('Key: '+key);
+    debug ('Stored:'+storage.getItem(key));    // Verify
+    debug ("Total items: "+storage.length);
 
     // Play sound
     /*
@@ -233,8 +204,22 @@ function drawAllNotifications () {
 
     $("#notifications-div").empty();
 
-    for (var i=0; i < storage.length; i++) {
-        pl = JSON.parse (storage.getItem(storage.key(i)));
+    debug ("items: "+storage.length);
+
+    // Sort the items by their key (timestamp)
+    var arr = new Array();
+    for (var key in storage) {
+        if (localStorage.hasOwnProperty(key) && !isNaN(key)) {
+            arr.push(key);
+        }
+    }
+
+    arr.sort(function(a, b) {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+
+    for (var i=0; i<arr.length; i++) {
+        pl = JSON.parse (storage.getItem(arr[i]));
         drawNotification (pl);
     }
 
@@ -268,6 +253,40 @@ function successHandler (result) {
 function errorHandler (error) {
     debug('error:'+ error);
 }
+
+function drawNotification (pl) {
+
+    if (typeof pl.timestamp === 'undefined' || pl.timestamp == 0) {
+        var date = new Date();
+        pl.timestamp = date.valueOf();
+    }
+
+    var uid = pl.timestamp;
+    //    console.log ('uid:'+uid);
+    if (typeof uid === 'undefined') { return; }
+
+    var txt = '<div class="row service-event" id="'+uid+'">';
+
+    txt += '<div class="small-2 columns" style="text-align:center"><img class="service-type" src="img/'+pl.type+'.png" alt="" /></div>';
+
+    var curMsg = pl.message;
+    curMsg = curMsg.replace (/'/g, "\\'");
+
+//    console.log ('share msg:'+curMsg);
+    var shareonclickstr = 'window.plugins.socialsharing.share(\''+curMsg+ ' ('+pl.url+')\', \''+pl.title+'\');';
+
+    txt += '<div class="small-9 columns"><p class="title">'+pl.title+'</p><p class="message">'+pl.message+'</p><p class="timestamp">' +pr_date(pl.timestamp)+' - '+pl.type;
+    txt += '<a class="clickable" onclick="'+shareonclickstr+'"><i class="fi-share action-icon-sm"></i></a>';
+    txt += '</p>';
+
+    txt += '</div>';
+    txt += '<div class="small-1 column"><a class="clickable right" onclick="deleteNotification(\''+uid+'\')"><i class="fi-x-circle action-icon"></i></a></div>';
+    txt += '</div>';
+
+
+    $("#notifications-div").prepend(txt);
+}
+
         
 document.addEventListener('deviceready', onDeviceReady, true);
 
