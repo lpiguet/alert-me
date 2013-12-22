@@ -1,8 +1,15 @@
-var notificationBackend = 'https://app.innovalue.ch/traffic';
-var registrationBackend = notificationBackend+'/registration.php'
+//// Old - Prod
+//var notificationBackend = 'https://app.innovalue.ch/traffic';
+//var registrationBackend = notificationBackend+'/registration.php'
 
+// New - Local
 //var notificationBackend = 'http://localhost/alertme';
 //var registrationBackend = notificationBackend+'/devices/register'
+
+// New - Prod
+var notificationBackend = 'https://app.innovalue.ch/alertme';
+var registrationBackend = notificationBackend+'/devices/register'
+
 
 var pushNotification;
 var storage = window.localStorage;
@@ -145,6 +152,27 @@ function openURL (url) {
     var ref = window.open (url, '_blank', 'location=no');
 }
 
+function checkLoggedInState () {
+    uuid = getUUID();
+    if (storage.getItem('login.'+uuid)) {
+        debug ("Logged in with uuid: "+uuid);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function storeLoggedInState () {
+    uuid = getUUID();
+    storage.setItem('login.'+uuid, uuid);
+    debug ('Stored login:'+storage.getItem('login.'+uuid));    // Verify
+}
+
+function clearLoggedInState () {
+    uuid = getUUID();
+    storage.removeItem('login.'+uuid);
+}
+
 function addNotification (pl) {
     clearWelcome();
     var value = JSON.stringify (pl);
@@ -182,6 +210,24 @@ function deleteNotification (uid) {
     drawAllNotifications ();
 }
 
+function getUUID () {
+    if (typeof device === 'undefined') {
+        uuid = 'unknown-x234sajkha-2342';
+    } else {
+        uuid = device.uuid;
+    }
+    debug ("UUID:"+uuid);
+    return uuid;
+}
+
+function checkLogin () {
+    if (! checkLoggedInState()) {
+        drawLogin();
+        return false;
+    }
+    return true;
+}
+
 function drawLogin() {
 
     var uuid;
@@ -189,12 +235,12 @@ function drawLogin() {
     var platform;
     var version;
     if (typeof device === 'undefined') {
-        uuid = 'unknown-x234sajkha-2342';
+        uuid = getUUID();
         name = navigator.appCodeName;
         platform = navigator.platform;
         version = navigator.appVersion;
     } else {
-        uuid = device.uuid;
+        uuid = getUUID();
         name = device.name;
         platform = device.platform;
         version = device.version;
@@ -226,6 +272,9 @@ $("#UserLoginForm").submit(function(e) {
             success:function(data, textStatus, jqXHR) {
                 //data: return data from server
                 debug ('Success: received: ' + data);
+                storeLoggedInState();
+                $("#login-div").empty();
+                drawAllNotifications();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 //if fails     
@@ -266,6 +315,8 @@ function clearWelcome() {
 }
 
 function drawAllNotifications () {
+
+    if (!checkLogin()) { return; }
 
     $("#notifications-div").empty();
 
