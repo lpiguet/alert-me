@@ -18,7 +18,11 @@ var storage = window.localStorage;
 function onDeviceReady() {
 
     debug('deviceready event received');
-        
+
+    document.addEventListener("backbutton", function(e) {        
+            debug ("Back button pressed");
+        }, false);
+
     /*
     document.addEventListener("backbutton", function(e) {
             debug('backbutton event received');
@@ -154,10 +158,14 @@ function openURL (url) {
 
 function checkLoggedInState () {
     uuid = getUUID();
-    if (storage.getItem('login.'+uuid)) {
+    debug ("Checking logged in state: "+uuid);
+    var val = storage.getItem('login.'+uuid);
+    debug ("Value:"+val);
+    if (val != undefined) {
         debug ("Logged in with uuid: "+uuid);
         return true;
     } else {
+        debug ("Did not find token: "+uuid);
         return false;
     }
 }
