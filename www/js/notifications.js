@@ -3,12 +3,12 @@
 //var registrationBackend = notificationBackend+'/registration.php'
 
 // New - Local
-//var notificationBackend = 'http://localhost/alertme';
-//var registrationBackend = notificationBackend+'/devices/register'
+var notificationBackend = 'http://192.168.99.10/alertme';
+var registrationBackend = notificationBackend+'/devices/register'
 
 // New - Prod
-var notificationBackend = 'https://app.innovalue.ch/alertme';
-var registrationBackend = notificationBackend+'/devices/register'
+//var notificationBackend = 'https://app.innovalue.ch/alertme';
+//var registrationBackend = notificationBackend+'/devices/register'
 
 
 var pushNotification;
@@ -18,12 +18,12 @@ var storage = window.localStorage;
 function onDeviceReady() {
 
     debug('deviceready event received');
-
+    /*
     document.addEventListener("backbutton", function(e) {        
             debug ("Back button pressed");
         }, false);
+    */
 
-    /*
     document.addEventListener("backbutton", function(e) {
             debug('backbutton event received');
   	
@@ -38,7 +38,7 @@ function onDeviceReady() {
                 navigator.app.backHistory();
             }
         }, false);
-    */	
+
     try { 
         pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
