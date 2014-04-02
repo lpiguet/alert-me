@@ -156,7 +156,8 @@ function pr_date (ts) {
 
 function openURL (url) {
     //    var ref = window.open (url, '_system');
-    var ref = window.open (url, '_system', 'location=no');
+    //    var ref = window.open (url, '_system', 'location=no');
+    var ref = window.open (url, '_system');
 }
 
 function checkLoggedInState () {
