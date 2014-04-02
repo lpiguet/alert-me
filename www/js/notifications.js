@@ -83,7 +83,10 @@ function onNotificationGCM(e) {
             // here is where you might want to send it the regID for later use.
             $.post (registrationBackend, { 
                         registration: e.regid,
-                        uuid: device.uuid
+                        uuid: device.uuid,
+                        name: device.name,
+                        platform: device.platform,
+                        version: device.version
                         });
         }
         break;
