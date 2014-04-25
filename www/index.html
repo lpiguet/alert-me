@@ -1,112 +1,118 @@
 <!DOCTYPE html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 
   <title>alert-me</title>
 
-  <link rel="stylesheet" href="css/fonts-local-ttf.css" type="text/css">
+  <link rel="stylesheet" href="css/fonts.css" type="text/css">
   
   <link rel="stylesheet" href="css/foundation.css">
   <link rel="stylesheet" href="css/icons/foundation-icons.css">
 
   <link rel="stylesheet" href="css/alertme.css">
+  <link rel="stylesheet" href="css/local.css">
+  <link rel="stylesheet" href="css/pages.css">
 
   <script src="js/vendor/custom.modernizr.js"></script>
 
 </head>
 <body>
-<div id="home" style="font-family: Oswald; font-weight: 300;">
-  <div class="row top_banner">
-    <div class="small-6 column">
-      <div id="title_area">
+  <!-- START of templates  ------------------------------------------------------------------------------------  -->
+  <script id="home-tpl" type="text/x-handlebars-template">
+    <div id="home">
+      <div class="row top_banner">
+        <div class="small-6 column">
+          <div id="title_area">
+            <div class="left"><img src="icon.png" alt=""/></div>
+            <div class="title left am_app_name">
+              <a class="clickable" href="#go/backend">{{app_name}}</a>
+              <a href="#" class="am-button" id="logout"><i class="fi-power"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="small-6 column">
+          <div id="actions_area" class="right">
+            <a class="clickable" onclick="app.backend.notificationManager.clearAllNotifications();"><i class="fi-x-circle action-icon"></i>&nbsp;{{clear_all}}</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="login-div">
+      </div>
+
+      <div id="messages-div">
+      </div>
+
+      <div id="notifications-div">
+      </div>
+
+      <div id="footer-div">
+        <div class="row footer_banner">
+          <div class="large-12 columns">
+            <p>&nbsp;</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="small-6 column">
-      <div id="actions_area" class="right">
-      </div>
-    </div>
+  </script>
 
-  </div>
+  <script id="auth-tpl" type="text/x-handlebars-template">
 
-  <div id="login-div">
-  </div>
+    <nav data-options="is_hover:false" class="top-bar" style="">
 
-  <div id="messages-div">
-  </div>
+      <ul class="title-area">
+        <li class="name">
+          <h1><img src="icon.png" alt="" style="height:26px;"/><a href="#">{{app_name}}</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
 
-  <div id="notifications-div">
-  </div>
+      <section class="top-bar-section" style="left: 0%;">
+        <ul class="right">
+        </ul>
+      </section>
+    </nav>
 
-  <div id="footer-div">
-  </div>
+    <div id="login_form"></div>
+  </script>
 
-    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-    <script type="text/javascript" src="PushNotification.js"></script>
-    <script  type="text/javascript" src="js/plugins/SocialSharing.js"></script>
+  <script id="backend-tpl" type="text/x-handlebars-template">
+      <iframe src="{{href}}" style="width:100%; height:100%;">
+  </script>
 
 
+  <!-- End of templates ------------------------------------------------------------------------------------  -->
+
+  <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+  <script type="text/javascript" src="PushNotification.js"></script>
+  <script type="text/javascript" src="js/plugins/SocialSharing.js"></script>
+
+  <script src="js/vendor/handlebars.js"></script>
+
+  <script src="js/vendor/zepto.min.js"></script>    
+  <script src="js/foundation.min.js"></script>
+  
   <script>
-    document.write('<script src=' +
-                            ('__proto__' in {} ? 'js/vendor/zepto.min' : 'js/vendor/jquery') +
-                            '.js><\/script>')
-    </script>
-    
-    <script src="js/foundation.min.js"></script>
-    <!--
-       <script src="js/foundation/foundation.js"></script>
-       <script src="js/foundation/foundation.interchange.js"></script>
-       <script src="js/foundation/foundation.abide.js"></script>
-       <script src="js/foundation/foundation.dropdown.js"></script>
-       <script src="js/foundation/foundation.placeholder.js"></script>
-       <script src="js/foundation/foundation.forms.js"></script>
-       <script src="js/foundation/foundation.alerts.js"></script>
-       <script src="js/foundation/foundation.magellan.js"></script>
-       <script src="js/foundation/foundation.reveal.js"></script>
-       <script src="js/foundation/foundation.tooltips.js"></script>
-       <script src="js/foundation/foundation.clearing.js"></script>
-       <script src="js/foundation/foundation.cookie.js"></script>
-       <script src="js/foundation/foundation.joyride.js"></script>
-       <script src="js/foundation/foundation.orbit.js"></script>
-       <script src="js/foundation/foundation.section.js"></script>
-       <script src="js/foundation/foundation.topbar.js"></script>
-       -->
-    
-    <script>
-      $(document).foundation();
-    </script>
-    <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
+    $(document).foundation();
+  </script>
 
-    <script src="js/vendor/globalize/globalize.js"></script>
-    <script src="js/vendor/globalize/cultures/globalize.culture.fr.js"></script>
-    <script src="js/vendor/globalize/cultures/globalize.culture.en-US.js"></script>
-    <script src="js/vendor/globalize/cultures/globalize.culture.de.js"></script>
+  <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
 
-    <script type="text/javascript" src="js/i18n_settings.js"></script>
+  <script src="js/vendor/globalize/globalize.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.fr.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.en-US.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.de.js"></script>
 
-    <script type="text/javascript" src="js/notifications.js"></script>
-
-<script>
-  // Prepare UI
-  drawHeader();
-  drawAllNotifications();
-</script>
-
-<!--
-<script>
-var pl={title:"A1 - Geneve -> Lausanne",
-        message:"A1 - Geneve -> Lausanne - Entre la jonction d'Aubonne et la jonction de Morges-Est trafic en accordeon",
-        timestamp:0,
-        type:"traffic",
-        url:"https://app.innovalue.ch/traffic/"};
-
-
-drawAllNotifications();
-</script>
-<a class="button" href="#" onclick="var now = new Date().valueOf(); pl.timestamp=now;pl.title = 'Test '+now;addNotification(pl);">Add event</a>
--->
+  <script type="text/javascript" src="js/i18n_settings.js"></script>
+  <script type="text/javascript" src="js/Util.js"></script>
+  <script type="text/javascript" src="js/HomeView.js"></script>
+  <script type="text/javascript" src="js/BackendView.js"></script>
+  <script type="text/javascript" src="js/Backend.js"></script>
+  <script type="text/javascript" src="js/NotificationManager.js"></script>
+  <script type="text/javascript" src="js/Auth.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
 </div>
 </body>

@@ -1,12 +1,11 @@
 html, body {
-  font-family: Oswald !important;
-  font-weight: 300;
+  font-family: Arial, FiraSansRegular;
+  height:100%;
 }
 p {
-  font-family: Oswald !important;
+  font-family: Arial, FiraSansRegular;
   line-height:1.2;
   margin-bottom:0.5em;
-  font-weight: 300;
 }
 
 .action-icon {
@@ -20,9 +19,8 @@ p {
   margin-left:10px;
 }
 
-
 .top_banner {
-  background-color:#444;
+  background-color:#353030;
 }
 .top_banner img {
   width:36px;
@@ -31,7 +29,8 @@ p {
 
 .top_banner .title {
   font-size:1.4em;
-  font-weight:400;
+  font-family: Arial, FiraSansMedium;
+  font-weight:bold;
   color:white;
   margin:12px 0px 6px 10px;
 }
@@ -41,7 +40,7 @@ p {
 }
 
 .footer_banner {
-  background-color:#444;
+  background-color:#353030;
   bottom:0px;
 }
 
@@ -83,4 +82,28 @@ p {
 #welcome {
   margin:0px;
   padding:1em;
+}
+
+#home {
+    height:100%;
+}
+
+.am-button {
+    padding: 3px 6px;
+    margin:2px 2px 2px 2px;
+    font-size:18px;
+    line-height:18px;
+    color:white;
+}
+
+.top-bar h1 {
+color:#fff;
+}
+
+#login-error div {
+    margin:10px;
+}
+
+iframe {
+    border:none;
 }
