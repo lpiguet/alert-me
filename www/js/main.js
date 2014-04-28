@@ -97,7 +97,7 @@ var App = function () {
 
         this.actionsURL = /^#(.*?)\/(.*?)$/;
 
-        this.backend = new Backend ('alert-me', 'app.innovalue.ch', 'alertme', '/users/login');
+        this.backend = new Backend ('alert-me', 'app.innovalue.ch', 'alertme', '/users/login', '/users/logout');
 
         if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
             document.addEventListener('deviceready', $.proxy(this.onDeviceReady, this), false);

@@ -1,8 +1,10 @@
-function Auth (name, addr) {
+function Auth (name, addr, login_endpoint, logout_endpoint) {
 
     this.initialize = function () {
         this.name = name;
         this.addr = addr;
+        this.login_endpoint = login_endpoint;
+        this.logout_endpoint = logout_endpoint;
         this.localStoragePrefix = this.name+'-'+this.addr;
     }
 
@@ -21,6 +23,8 @@ function Auth (name, addr) {
 
     this.logout = function () {
         localStorage.removeItem (this.localStoragePrefix+'-ticket');
+        // Perform server-side logout as well
+        $.ajax({url : this.addr+this.logout_endpoint, type: "GET", success:function(data, textStatus, jqXHR) { console.log ('Logged out');}});
         location.reload(); // reload the page
     }
 
@@ -44,7 +48,8 @@ function Auth (name, addr) {
         }
 
         var txt = '<div class="row user form"><div id="login-error"></div><form accept-charset="utf-8" method="post" id="UserLoginForm" class="nice" action="';
-        txt += this.addr+'"><div style="display:none;">';
+        console.log ('Address:'+this.addr);
+        txt += this.addr+this.login_endpoint+'"><div style="display:none;">';
         txt += '<input type="hidden" value="POST" name="_method">';
         txt += '<input type="hidden" value="'+uuid+'" name="data[Device][uuid]" />';
         txt += '<input type="hidden" value="'+name+'" name="data[Device][name]" />';
@@ -76,7 +81,6 @@ function Auth (name, addr) {
                 url : formURL,
                 type: "POST",
                 data : postData,
-                context: this,
                 success:function(data, textStatus, jqXHR) {
                     //data: return data from server
                     console.log ('Success: received: ' + data);
