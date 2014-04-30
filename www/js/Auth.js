@@ -80,7 +80,6 @@ function Auth (name, addr, login_endpoint, logout_endpoint) {
             $.ajax({
                 url : formURL,
                 type: "POST",
-                crossDomain: true,
                 data : postData,
                 success:function(data, textStatus, jqXHR) {
                     //data: return data from server
