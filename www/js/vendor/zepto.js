@@ -1346,7 +1346,7 @@ window.$ === undefined && (window.$ = Zepto)
         abortTimeout
 
     if (deferred) deferred.promise(xhr)
-
+      alert ('crossDomain:'+settings.crossDomain);
     if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
     setHeader('Accept', mime || '*/*')
     if (mime = settings.mimeType || mime) {
