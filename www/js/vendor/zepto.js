@@ -1323,6 +1323,8 @@ window.$ === undefined && (window.$ = Zepto)
 
     ajaxStart(settings)
 
+      alert ('settings.url:'+settings.url);
+      alert ('window.location.host:'+window.location.host);
     if (!settings.crossDomain && window.location.host !== undefined) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) && RegExp.$2 != window.location.host
 
     if (!settings.url) settings.url = window.location.toString()
