@@ -1323,8 +1323,10 @@ window.$ === undefined && (window.$ = Zepto)
 
     ajaxStart(settings)
 
-    if (!settings.crossDomain) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
-      RegExp.$2 != window.location.host
+      if (!settings.crossDomain) {
+          settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) && RegExp.$2 != window.location.host
+          console.log ('settings.crossDomain: '+window.location.host+ ' : '+settings.crossDomain);
+      }
 
     if (!settings.url) settings.url = window.location.toString()
     serializeData(settings)
@@ -1348,7 +1350,9 @@ window.$ === undefined && (window.$ = Zepto)
 
     if (deferred) deferred.promise(xhr)
 
-    if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
+      if (!settings.crossDomain) {
+          setHeader('X-Requested-With', 'XMLHttpRequest')
+      }
     setHeader('Accept', mime || '*/*')
     if (mime = settings.mimeType || mime) {
       if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
