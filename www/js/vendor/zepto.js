@@ -1323,8 +1323,6 @@ window.$ === undefined && (window.$ = Zepto)
 
     ajaxStart(settings)
 
-//      alert ('settings.url:'+settings.url);
-//      alert ('window.location.host:'+window.location.host);
     if (!settings.crossDomain && window.location.host.length > 0) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) && RegExp.$2 != window.location.host
 
     if (!settings.url) settings.url = window.location.toString()
@@ -1348,7 +1346,6 @@ window.$ === undefined && (window.$ = Zepto)
         abortTimeout
 
     if (deferred) deferred.promise(xhr)
-      alert ('crossDomain:'+settings.crossDomain);
     if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
     setHeader('Accept', mime || '*/*')
     if (mime = settings.mimeType || mime) {
