@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="css/local.css">
   <link rel="stylesheet" href="css/pages.css">
 
+  <script src="js/vendor/custom.modernizr.js"></script>
+
 </head>
 <body>
   <!-- START of templates  ------------------------------------------------------------------------------------  -->
@@ -83,9 +85,27 @@
 
   <!-- End of templates ------------------------------------------------------------------------------------  -->
 
-  <script src="js/vendor/zepto.js"></script>    
+  <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+  <script type="text/javascript" src="PushNotification.js"></script>
+  <script type="text/javascript" src="js/plugins/SocialSharing.js"></script>
 
-<!--
+  <script src="js/vendor/handlebars.js"></script>
+
+  <script src="js/vendor/zepto.min.js"></script>    
+  <script src="js/foundation.min.js"></script>
+  
+  <script>
+    $(document).foundation();
+  </script>
+
+  <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
+
+  <script src="js/vendor/globalize/globalize.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.fr.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.en-US.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.de.js"></script>
+
+  <script type="text/javascript" src="js/i18n_settings.js"></script>
   <script type="text/javascript" src="js/Util.js"></script>
   <script type="text/javascript" src="js/HomeView.js"></script>
   <script type="text/javascript" src="js/BackendView.js"></script>
@@ -93,59 +113,6 @@
   <script type="text/javascript" src="js/NotificationManager.js"></script>
   <script type="text/javascript" src="js/Auth.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
--->
-
-  <script>
-
-        var uuid = 'blah';
-        var name = 'blah';
-        var platform = 'blah';
-        var version = 'blah';
-
-        var txt = '<div class="row user form"><div id="login-error"></div><form accept-charset="utf-8" method="post" id="UserLoginForm" class="nice" action="';
-        txt += 'https://app.innovalue.ch/alertme/users/login'+'"><div style="display:none;">';
-        txt += '<input type="hidden" value="POST" name="_method">';
-        txt += '<input type="hidden" value="'+uuid+'" name="data[Device][uuid]" />';
-        txt += '<input type="hidden" value="'+name+'" name="data[Device][name]" />';
-        txt += '<input type="hidden" value="'+platform+'" name="data[Device][platform]" />';
-        txt += '<input type="hidden" value="'+version+'" name="data[Device][version]" /></div>';
-        txt += '<div id="login-form"><fieldset><legend>Please enter your username and password</legend>';
-        txt += '<div class="form-field required"><label for="UserUsername">Username</label><input type="text" required="required" id="UserUsername" maxlength="100" class="input-text medium input-text" name="data[User][username]"></div><div class="form-field required"><label for="UserPassword">Password</label><input type="password" required="required" id="UserPassword" class="input-text medium input-text" name="data[User][password]"></div>';
-        txt += '<div class="go"><button class="small button">Submit</button></div></fieldset></form></div></div>';
-        
-        $('body').append (txt);
-
-
-        $('#UserUsername').focus();
-
-        //callback handler for form submit
-        $("#UserLoginForm").submit(function(e) {
-
-        var postData = $(this).serializeArray();
-            var formURL = $(this).attr("action");
-            $.ajax({
-                url : formURL,
-                type: "POST",
-                data : postData,
-                context: this,
-                success:function(data, textStatus, jqXHR) {
-                    //data: return data from server
-                    console.log ('URL:'+formURL);
-                    console.log ('Success: received: ' + data);
-                    var result = JSON.parse (data);
-                    $('#login-error').html ('<div class="alert-box alert">' + result.message + '</div>');        
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    //if fails     
-                    console.log ('URL:'+formURL);
-                    console.log ('Failure: ' + textStatus);
-                }
-            });
-            e.preventDefault(); //STOP default action
-        });
-
-  </script>
-
 
 </div>
 </body>

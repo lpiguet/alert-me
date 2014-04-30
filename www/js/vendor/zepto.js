@@ -1317,7 +1317,6 @@ window.$ === undefined && (window.$ = Zepto)
   }
 
   $.ajax = function(options){
-
     var settings = $.extend({}, options || {}),
         deferred = $.Deferred && $.Deferred()
     for (key in $.ajaxSettings) if (settings[key] === undefined) settings[key] = $.ajaxSettings[key]
@@ -1349,8 +1348,7 @@ window.$ === undefined && (window.$ = Zepto)
 
     if (deferred) deferred.promise(xhr)
 
-      if (!settings.crossDomain) { setHeader('X-Requested-With', 'XMLHttpRequest'); }
-    setHeader('X-Requested-With', 'XMLHttpRequest')
+    if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
     setHeader('Accept', mime || '*/*')
     if (mime = settings.mimeType || mime) {
       if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
