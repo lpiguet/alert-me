@@ -83,8 +83,10 @@ function Auth (name, addr, login_endpoint, logout_endpoint) {
                 data : postData,
                 success:function(data, textStatus, jqXHR) {
                     //data: return data from server
+                    console.log ('URL:'+formURL);
                     console.log ('Success: received: ' + data);
                     var result = JSON.parse (data);
+                    $('#login-error').prepend ('<div class="alert-box alert">' + data + '</div>');
                     if (result && result.status == 'OK') {
                         if (result.ticket) {
                             localStorage.setItem (self.localStoragePrefix+'-ticket', result.ticket);
@@ -96,7 +98,7 @@ function Auth (name, addr, login_endpoint, logout_endpoint) {
                         $("#login-div").empty();
                         location.reload(); // reload the page
                     } else {
-                        $('#login-error').html ('<div class="alert-box alert">' + result.message + '</div>');
+//                        $('#login-error').html ('<div class="alert-box alert">' + result.message + '</div>');
                         $('#UserPassword').val('');
                         console.log ('Login Error: ' + result.message);
                     }

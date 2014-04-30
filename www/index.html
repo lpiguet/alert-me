@@ -6,65 +6,114 @@
 
   <title>alert-me</title>
 
+  <link rel="stylesheet" href="css/fonts.css" type="text/css">
+  
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/icons/foundation-icons.css">
+
   <link rel="stylesheet" href="css/alertme.css">
   <link rel="stylesheet" href="css/local.css">
   <link rel="stylesheet" href="css/pages.css">
 
+  <script src="js/vendor/custom.modernizr.js"></script>
+
 </head>
 <body>
-  <script src="js/vendor/zepto.js"></script>    
+  <!-- START of templates  ------------------------------------------------------------------------------------  -->
+  <script id="home-tpl" type="text/x-handlebars-template">
+    <div id="home">
+      <div class="row top_banner">
+        <div class="small-6 column">
+          <div id="title_area">
+            <div class="left"><img src="icon.png" alt=""/></div>
+            <div class="title left am_app_name">
+              <a class="clickable" href="#go/backend">{{app_name}}</a>
+              <a href="#" class="am-button" id="logout"><i class="fi-power"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="small-6 column">
+          <div id="actions_area" class="right">
+            <a class="clickable" onclick="app.backend.notificationManager.clearAllNotifications();"><i class="fi-x-circle action-icon"></i>&nbsp;{{clear_all}}</a>
+          </div>
+        </div>
+      </div>
 
-  <script>
+      <div id="login-div">
+      </div>
 
-        var uuid = 'blah';
-        var name = 'blah';
-        var platform = 'blah';
-        var version = 'blah';
+      <div id="messages-div">
+      </div>
 
-        var txt = '<div class="row user form"><div id="login-error"></div><form accept-charset="utf-8" method="post" id="UserLoginForm" class="nice" action="';
-        txt += 'https://app.innovalue.ch/alertme/users/login'+'"><div style="display:none;">';
-        txt += '<input type="hidden" value="POST" name="_method">';
-        txt += '<input type="hidden" value="'+uuid+'" name="data[Device][uuid]" />';
-        txt += '<input type="hidden" value="'+name+'" name="data[Device][name]" />';
-        txt += '<input type="hidden" value="'+platform+'" name="data[Device][platform]" />';
-        txt += '<input type="hidden" value="'+version+'" name="data[Device][version]" /></div>';
-        txt += '<div id="login-form"><fieldset><legend>Please enter your username and password</legend>';
-        txt += '<div class="form-field required"><label for="UserUsername">Username</label><input type="text" required="required" id="UserUsername" maxlength="100" class="input-text medium input-text" name="data[User][username]"></div><div class="form-field required"><label for="UserPassword">Password</label><input type="password" required="required" id="UserPassword" class="input-text medium input-text" name="data[User][password]"></div>';
-        txt += '<div class="go"><button class="small button">Submit</button></div></fieldset></form></div></div>';
-        
-        $('body').append (txt);
+      <div id="notifications-div">
+      </div>
 
+      <div id="footer-div">
+        <div class="row footer_banner">
+          <div class="large-12 columns">
+            <p>&nbsp;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
 
-        $('#UserUsername').focus();
+  <script id="auth-tpl" type="text/x-handlebars-template">
 
-        //callback handler for form submit
-        $("#UserLoginForm").submit(function(e) {
+    <nav data-options="is_hover:false" class="top-bar" style="">
 
-        var postData = $(this).serializeArray();
-            var formURL = $(this).attr("action");
-            $.ajax({
-                url : formURL,
-                type: "POST",
-                data : postData,
-                context: this,
-                success:function(data, textStatus, jqXHR) {
-                    //data: return data from server
-                    console.log ('URL:'+formURL);
-                    console.log ('Success: received: ' + data);
-                    var result = JSON.parse (data);
-                    $('#login-error').html ('<div class="alert-box alert">' + result.message + '</div>');        
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    //if fails     
-                    console.log ('URL:'+formURL);
-                    console.log ('Failure: ' + textStatus);
-                }
-            });
-            e.preventDefault(); //STOP default action
-        });
+      <ul class="title-area">
+        <li class="name">
+          <h1><img src="icon.png" alt="" style="height:26px;"/><a href="#">{{app_name}}</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
 
+      <section class="top-bar-section" style="left: 0%;">
+        <ul class="right">
+        </ul>
+      </section>
+    </nav>
+
+    <div id="login_form"></div>
+  </script>
+
+  <script id="backend-tpl" type="text/x-handlebars-template">
+      <iframe src="{{href}}" style="width:100%; height:100%;">
   </script>
 
 
+  <!-- End of templates ------------------------------------------------------------------------------------  -->
+
+  <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+  <script type="text/javascript" src="PushNotification.js"></script>
+  <script type="text/javascript" src="js/plugins/SocialSharing.js"></script>
+
+  <script src="js/vendor/handlebars.js"></script>
+
+  <script src="js/vendor/zepto.min.js"></script>    
+  <script src="js/foundation.min.js"></script>
+  
+  <script>
+    $(document).foundation();
+  </script>
+
+  <script src="js/vendor/zepto.i18n.properties-min-1.0.9.js"></script>
+
+  <script src="js/vendor/globalize/globalize.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.fr.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.en-US.js"></script>
+  <script src="js/vendor/globalize/cultures/globalize.culture.de.js"></script>
+
+  <script type="text/javascript" src="js/i18n_settings.js"></script>
+  <script type="text/javascript" src="js/Util.js"></script>
+  <script type="text/javascript" src="js/HomeView.js"></script>
+  <script type="text/javascript" src="js/BackendView.js"></script>
+  <script type="text/javascript" src="js/Backend.js"></script>
+  <script type="text/javascript" src="js/NotificationManager.js"></script>
+  <script type="text/javascript" src="js/Auth.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</div>
 </body>
 </html>
