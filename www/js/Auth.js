@@ -84,19 +84,20 @@ function Auth (name, addr, login_endpoint, logout_endpoint) {
                 success:function(data, textStatus, jqXHR) {
                     //data: return data from server
                     console.log ('URL:'+formURL);
-                    console.log ('Success: received: ' + data);
+                    console.log ('Login response: received: ' + data);
                     var result = JSON.parse (data);
 //                    $('#login-error').prepend ('<div class="alert-box alert">' + data + '</div>');
                     if (result && result.status == 'OK') {
+                        console.log ('Successful login');
                         if (result.ticket) {
                             localStorage.setItem (self.localStoragePrefix+'-ticket', result.ticket);
-                            console.log ('Success: stored: ' + localStorage.getItem (self.localStoragePrefix+'-ticket') + ' - ' + self.localStoragePrefix+'-ticket');
+                            console.log ('Ticket: stored: ' + localStorage.getItem (self.localStoragePrefix+'-ticket') + ' - ' + self.localStoragePrefix+'-ticket');
                         }
                         if (result.projects) {
                             localStorage.setItem (self.localStoragePrefix+'-projects', JSON.stringify (result.projects));
                         }
                         $("#login-div").empty();
-                        location.reload(); // reload the page
+                        app.route();
                     } else {
                         $('#login-error').html ('<div class="alert-box alert">' + result.message + '</div>');
                         $('#UserPassword').val('');
