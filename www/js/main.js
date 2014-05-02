@@ -6,7 +6,7 @@ var App = function () {
         $(window).on('hashchange', $.proxy(this.route, this));
     },
 
-    this.route = function () {
+    this.route = function (target) {
         var self = this;
 //        console.log ('new '+ this.constructor.name + ': '+ JSON.stringify(this));
         debug ('Entering app.route()');
@@ -15,10 +15,16 @@ var App = function () {
             this.slidePage(this.backend.auth.drawLogin());
             return;
         }
+        var hash;
+        if (target && typeof target == 'string') {
+            console.log ('Target:'+target);
+            hash = target;
+        } else {
+            hash = window.location.hash;
+        }
 
-        var hash = window.location.hash;
         debug ('Hash: '+hash);
-        if (!hash) {
+        if (hash == 'undefined' || !hash || hash == 'home') {
             if (!this.homePage) {
                 this.homePage = new HomeView(this).render();
             }
@@ -34,7 +40,7 @@ var App = function () {
             debug ('app.route: action: '+action);
             debug ('app.route: param: '+param);
 
-            self.slidePage(new BackendView(this).render());
+            this.slidePage(new BackendView(this).render());
 
         }
     }

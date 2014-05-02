@@ -193,7 +193,7 @@ var NotificationManager = function(name, addr) {
                    url: this.addr };
 
         this.addNotification(pl);
-        this.render();
+        app.route('home');
     }
 
     this.drawWelcome = function () {
