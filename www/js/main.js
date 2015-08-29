@@ -99,6 +99,8 @@ var App = function () {
     this.initialize = function () {
         var self = this;
 
+        debug('in app.initialize()');
+
         this.registerEvents();
 
         this.actionsURL = /^#(.*?)\/(.*?)$/;
@@ -106,6 +108,7 @@ var App = function () {
         this.backend = new Backend ('alert-me', 'app.innovalue.ch', 'alertme', '/users/login', '/users/logout');
 
         if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+            debug('registering deviceready event listener');
             document.addEventListener('deviceready', $.proxy(this.onDeviceReady, this), false);
         } else {
             this.onDeviceReady();

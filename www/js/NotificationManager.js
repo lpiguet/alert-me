@@ -3,7 +3,13 @@ var NotificationManager = function(name, addr) {
     var pushNotification;
     var storage = window.localStorage;
 
+    debug ('in NotificationManager');
+
     this.storageKey = name+'-'+addr+'-notifications';
+
+    this.initializePushNotification();
+
+    // Methods ------------------------------
 
     this.initializePushNotification = function () {
         try { 
@@ -235,5 +241,4 @@ var NotificationManager = function(name, addr) {
 
         return txt;
     }
-
 }
