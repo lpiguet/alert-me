@@ -12,75 +12,52 @@ var NotificationManager = function(name, addr) {
     // Methods ------------------------------
 
     this.initializePushNotification = function () {
-        try { 
-            pushNotification = window.plugins.pushNotification;
-            if (device.platform == 'android' || device.platform == 'Android') {
-                debug('registering android');
-                pushNotification.register(successHandler, errorHandler, {"senderID":"690639424128","ecb":"onNotificationGCM"});
-                // required!
-            } else {
-                debug('registering iOS');
-                pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
-            }
-        } catch(err) { 
-            debug ('pushNotification Error: '+am.phonegap_error(err.message)); 
-        } 
+        var pushNotification = PushNotification.init({ "android": {"senderID": "690639424128"},
+                                                           "ios": {}, "windows": {} } );
+
+        pushNotification.on ('registration', onRegistration);
+        pushNotification.on ('notification', onNotification);
+        pushNotification.on ('error', onError);
     }
 
-    // handle APNS notifications for iOS
-    this.onNotificationAPN = function (e) {
-        if (e.alert) {
-            debug('push-notification: ' + e.alert );
-            navigator.notification.alert(e.alert);
-        }
-        
-        if (e.sound) {
-            var snd = new Media('sounds/'.e.sound);
-            snd.play();
-        }
-        
-        if (e.badge) {
-            pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
-        }
+    this.onError = function (data) {
+        debug('ERROR -> MSG:' + data.message );
+        alert('ERROR -> MSG:' + data.message );
     }
-    
-    // handle GCM notifications for Android
-    this.onNotificationGCM = function (e) {
-        debug('EVENT -> RECEIVED:' + e.event );
-        
-        switch( e.event ) {
-        case 'registered':
-            if ( e.regid.length > 0 ) {
-                debug('REGISTERED -> REGID:' + e.regid);
+
+    this.onRegistration = function (data) {
+            if ( data.registrationId.length > 0 ) {
+                debug('REGISTERED -> REGID:' + data.registrationId);
+                alert('REGISTERED -> REGID:' + data.registrationId);
                 // Your GCM push server needs to know the regID before it can push to this device
                 // here is where you might want to send it the regID for later use.
                 $.post (this.registrationBackend, { 
-                    registration: e.regid,
+                    registration: data.registrationId,
                     uuid: device.uuid,
                     name: device.name,
                     platform: device.platform,
                     version: device.version
                 });
             }
-            break;
-            
-        case 'message':
-            addNotification (e.payload);
-            break;
-            
-        case 'error':
-            alert(am.error_event('laurent.piguet@gmail.com') + e.msg );
-            debug('ERROR -> MSG:' + e.msg );
-            break;
-            
-        default:
-            alert(am.unknown_event('laurent.piguet@gmail.com'));
-            debug('EVENT -> Unknown, an event was received and we do not know what it is: ' + e.msg);
-            break;
-        }
+    }
+    
+    // handle GCM notifications for Android
+    this.onNotification = function (data) {
+
+        debug('EVENT -> RECEIVED:' + data.title + '/' + data.message + '/' + data.count );
+        alert('EVENT -> RECEIVED:' + data.title + '/' + data.message + '/' + data.count );
+        
+//        addNotification (data);
     }
 
     this.addNotification = function (pl) {
+        // data.message,
+        // data.title,
+        // data.count,
+        // data.sound,
+        // data.image, 
+        // data.additionalData
+
 
         var curNotifStr = storage.getItem (app.backend.notificationManager.storageKey);
 
@@ -90,7 +67,7 @@ var NotificationManager = function(name, addr) {
             curNotif = new Array();
         }
 
-        curNotif.push(pl);
+        curNotif.push(data);
 
         // Sort the array
         curNotif.sort(function(a, b) {
