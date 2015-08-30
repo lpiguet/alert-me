@@ -17,7 +17,7 @@ var App = function () {
         }
         var hash;
         if (target && typeof target == 'string') {
-            console.log ('Target:'+target);
+            debug ('Target:'+target);
             hash = target;
         } else {
             hash = window.location.hash;

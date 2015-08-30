@@ -1,6 +1,7 @@
 
     debug = function (msg) {
         if (msg && msg != 'undefined') {
+            alert (msg);
             console.log (msg);
         }
     }

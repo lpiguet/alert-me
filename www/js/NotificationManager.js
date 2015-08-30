@@ -7,7 +7,7 @@ var NotificationManager = function(name, addr) {
 
     this.storageKey = name+'-'+addr+'-notifications';
 
-//    this.initializePushNotification();
+    this.initializePushNotification();
 
     // Methods ------------------------------
 
