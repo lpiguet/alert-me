@@ -12,9 +12,12 @@ var NotificationManager = function(name, addr) {
     // Methods ------------------------------
 
     this.initializePushNotification = function () {
+
+        debug ('in initializePushNotification');
         var pushNotification = PushNotification.init({ "android": {"senderID": "690639424128"},
                                                            "ios": {}, "windows": {} } );
 
+        debug ('in initializePushNotification after init');
         pushNotification.on ('registration', onRegistration);
         pushNotification.on ('notification', onNotification);
         pushNotification.on ('error', onError);
@@ -26,24 +29,27 @@ var NotificationManager = function(name, addr) {
     }
 
     this.onRegistration = function (data) {
-            if ( data.registrationId.length > 0 ) {
-                debug('REGISTERED -> REGID:' + data.registrationId);
-                alert('REGISTERED -> REGID:' + data.registrationId);
-                // Your GCM push server needs to know the regID before it can push to this device
-                // here is where you might want to send it the regID for later use.
-                $.post (this.registrationBackend, { 
-                    registration: data.registrationId,
-                    uuid: device.uuid,
-                    name: device.name,
-                    platform: device.platform,
-                    version: device.version
-                });
-            }
+
+        debug ('in onRegistration');
+        if ( data.registrationId.length > 0 ) {
+            debug('REGISTERED -> REGID:' + data.registrationId);
+            alert('REGISTERED -> REGID:' + data.registrationId);
+            // Your GCM push server needs to know the regID before it can push to this device
+            // here is where you might want to send it the regID for later use.
+            $.post (this.registrationBackend, { 
+                registration: data.registrationId,
+                uuid: device.uuid,
+                name: device.name,
+                platform: device.platform,
+                version: device.version
+            });
+        }
     }
     
     // handle GCM notifications for Android
     this.onNotification = function (data) {
 
+        debug ('in onNotification');
         debug('EVENT -> RECEIVED:' + data.title + '/' + data.message + '/' + data.count );
         alert('EVENT -> RECEIVED:' + data.title + '/' + data.message + '/' + data.count );
         
