@@ -7,21 +7,20 @@ var NotificationManager = function(name, addr) {
 
     this.storageKey = name+'-'+addr+'-notifications';
 
-    this.initializePushNotification();
+    debug ('before PushNotification.init');
+
+    var pushNotification = PushNotification.init({ "android": {"senderID": "690639424128"},
+                                                   "ios": {}, "windows": {} } );
+    
+
+    debug ('in initializePushNotification after init');
+
+    pushNotification.on ('registration', onRegistration);
+    pushNotification.on ('notification', onNotification);
+    pushNotification.on ('error', onError);
+
 
     // Methods ------------------------------
-
-    this.initializePushNotification = function () {
-
-        debug ('in initializePushNotification');
-        var pushNotification = PushNotification.init({ "android": {"senderID": "690639424128"},
-                                                           "ios": {}, "windows": {} } );
-
-        debug ('in initializePushNotification after init');
-        pushNotification.on ('registration', onRegistration);
-        pushNotification.on ('notification', onNotification);
-        pushNotification.on ('error', onError);
-    }
 
     this.onError = function (data) {
         debug('ERROR -> MSG:' + data.message );
