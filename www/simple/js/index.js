@@ -42,9 +42,30 @@ var app = {
         });
         
         push.on('registration', function(data) {
+
+            if (typeof device === 'undefined') {
+                uuid = 'browser';
+                name = navigator.appCodeName;
+                platform = navigator.platform;
+                version = navigator.appVersion;
+            } else {
+                uuid = device.uuid;
+                name = device.name;
+                platform = device.platform;
+                version = device.version;
+            }
+
+            var reginfo = { 
+                'uuid': uuid,
+                'name': name,
+                'platform': platform,
+                'version': version,
+                'registration': data.registrationId
+            };
+
             console.log("registration event");
             document.getElementById("regId").innerHTML = data.registrationId;
-            console.log(JSON.stringify(data));
+            console.log(JSON.stringify(reginfo));
         });
 
         push.on('notification', function(data) {
