@@ -100,6 +100,8 @@ var app = {
 
 */
             var uid = '01';
+            var now = new Date().valueOf();
+
             var pl = {type: "traffic",
                       url: "https://app.innovalue.ch/traffic",
                       timestamp: now,
