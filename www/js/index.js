@@ -75,7 +75,7 @@ var app = {
             };
 
             console.log("registration event");
-            document.getElementById("regId").innerHTML = data.registrationId;
+            document.getElementById("registration-div").innerHTML = data.registrationId;
             console.log(JSON.stringify(reginfo));
         });
 
@@ -129,8 +129,8 @@ var app = {
         });
 
         push.on('error', function(e) {
+            document.getElementById("registration-div").innerHTML = 'Registration error: '+e.message;
             alert ("error");
-            console.log("push error");
         });
     }
 };
